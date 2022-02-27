@@ -6,4 +6,4 @@ sim:
 	rm -rf obj_dir
 	make build && obj_dir/Vexample
 
-include ../Makefile
+include ../../Makefile
