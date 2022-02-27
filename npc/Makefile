@@ -3,6 +3,7 @@ build:
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+	rm -rf obj_dir
 	make build && obj_dir/Vexample
 
 include ../Makefile
