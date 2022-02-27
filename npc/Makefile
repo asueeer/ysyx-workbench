@@ -3,7 +3,6 @@ build:
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-
-	make build && obj_dir/Vtop
+	make build && obj_dir/main
 
 include ../Makefile
