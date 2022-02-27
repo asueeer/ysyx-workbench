@@ -6,4 +6,7 @@ sim:
 	rm -rf obj_dir
 	make build && obj_dir/Vtop
 
+wave:
+	gtkwave obj_dir/simx.vcd
+
 include ../../Makefile
