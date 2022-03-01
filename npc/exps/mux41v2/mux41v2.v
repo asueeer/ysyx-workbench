@@ -5,7 +5,7 @@ module mux41v2(
     input [1:0] x2,
     input [1:0] x3,
     input [1:0] y,
-    output [1:0]f
+    output reg [1:0]f
 );
     always @(*)
     begin
