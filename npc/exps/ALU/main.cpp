@@ -70,6 +70,7 @@ int main() {
             }
         }
     }
+    printf("test signed add ok.\n");
 
     // 测试无符号的加法, 无符号的加法只关心进位, 不关心溢出
     top->sel = 0b000;
@@ -89,6 +90,7 @@ int main() {
             }
         }
     }
+    printf("test unsigned add ok.\n");
 
     // 测试有符号的减法, 有符号的减法只关心溢出, 不关心进位/借位
     top->sel = 0b001;
@@ -108,6 +110,7 @@ int main() {
             }
         }
     }
+    printf("test signed sub ok.\n");
 
     // 测试无符号的减法, 无符号的减法只关心借位, 不关心溢出
     top->sel = 0b001;
@@ -121,12 +124,13 @@ int main() {
             step_and_dump_wave();
             if (top->result != sum || top->carry != !borrow) {
                 printf("i: %d, j: %d, your_sum: %d, your_carry: %d\n", i, j, top->result, top->carry);
-                printf("sum should be: %d, of should be %d\n", sum, of);
+                printf("sum should be: %d, carry should be %d\n", sum, !borrow);
                 sim_exit();
                 exit(0);
             }
         }
     }
+    printf("test unsigned sub ok.\n");
 
     sim_exit();
     printf("ok.\n");
