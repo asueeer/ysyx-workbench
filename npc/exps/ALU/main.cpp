@@ -72,7 +72,7 @@ int main() {
     }
 
     // 测试有符号的减法, 有符号的减法只关心溢出, 不关心进位/借位
-    top->sel = 0b000;
+    top->sel = 0b001;
     for (int i = -8; i < 7; ++i) {
         for (int j = -8; j < 7; ++j) {
             int sum = i - j;
