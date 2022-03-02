@@ -43,6 +43,15 @@ int borrow_(int i) {
     return i < 0;
 }
 
+int test_zero(int i, int zero_flag) {
+    if (i == 0 && zero_flag == 1) {
+        return 1;
+    }
+    if (i != 0 && zero_flag == 0) {
+        return 1;
+    }
+    return 0;
+}
 
 int main() {
     sim_init();
@@ -58,7 +67,7 @@ int main() {
         for (int j = -8; j <= 7; ++j) {
             int sum = i + j;
             int of = over_flow(sum);
-            sum &=0b1111;
+            sum &= 0b1111;
             top->A = i;
             top->B = j;
             step_and_dump_wave();
@@ -67,6 +76,9 @@ int main() {
                 printf("sum should be: %d, of should be %d\n", sum, of);
                 sim_exit();
                 exit(0);
+            }
+            if (!test_zero(sum, top->zero)) {
+                printf("test_zero failed.\n");
             }
         }
     }
@@ -78,7 +90,7 @@ int main() {
         for (unsigned int j = 0; j <= 15; ++j) {
             int sum = i + j;
             int carry = carry_(sum);
-            sum &=0b1111;
+            sum &= 0b1111;
             top->A = i;
             top->B = j;
             step_and_dump_wave();
@@ -87,6 +99,9 @@ int main() {
                 printf("sum should be: %d, carry should be %d\n", sum, carry);
                 sim_exit();
                 exit(0);
+            }
+            if (!test_zero(sum, top->zero)) {
+                printf("test_zero failed.\n");
             }
         }
     }
@@ -98,7 +113,7 @@ int main() {
         for (int j = -8; j <= 7; ++j) {
             int sum = i - j;
             int of = over_flow(sum);
-            sum &=0b1111;
+            sum &= 0b1111;
             top->A = i;
             top->B = j;
             step_and_dump_wave();
@@ -107,6 +122,9 @@ int main() {
                 printf("sum should be: %d, of should be %d\n", sum, of);
                 sim_exit();
                 exit(0);
+            }
+            if (!test_zero(sum, top->zero)) {
+                printf("test_zero failed.\n");
             }
         }
     }
@@ -118,7 +136,7 @@ int main() {
         for (unsigned int j = 0; j <= 15; ++j) {
             int sum = i - j;
             int borrow = borrow_(sum);
-            sum &=0b1111;
+            sum &= 0b1111;
             top->A = i;
             top->B = j;
             step_and_dump_wave();
@@ -127,6 +145,9 @@ int main() {
                 printf("sum should be: %d, carry should be %d\n", sum, !borrow);
                 sim_exit();
                 exit(0);
+            }
+            if (!test_zero(sum, top->zero)) {
+                printf("test_zero failed.\n");
             }
         }
     }
