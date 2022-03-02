@@ -19,7 +19,7 @@ void sim_init() {
     top = new Vmux21;
     contextp->traceEverOn(true);
     top->trace(tfp, 0);
-    tfp->open("dump.vcd");
+    tfp->open("obj_dir/dump.vcd");
 }
 
 void sim_exit() {
