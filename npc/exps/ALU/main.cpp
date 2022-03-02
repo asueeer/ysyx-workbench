@@ -71,6 +71,25 @@ int main() {
         }
     }
 
+    // 测试无符号的加法, 无符号的加法只关心进位, 不关心溢出
+    top->sel = 0b000;
+    for (unsigned int i = 0; i < 15; ++i) {
+        for (unsigned int j = 0; j < 15; ++j) {
+            int sum = i + j;
+            int carry = carry_(sum);
+            sum &=0b1111;
+            top->A = i;
+            top->B = j;
+            step_and_dump_wave();
+            if (top->result != sum || top->carry != carry) {
+                printf("i: %d, j: %d, your_sum: %d, your_carry: %d\n", i, j, top->result, top->overflow);
+                printf("sum should be: %d, carry should be %d\n", sum, carry);
+                sim_exit();
+                exit(0);
+            }
+        }
+    }
+
     // 测试有符号的减法, 有符号的减法只关心溢出, 不关心进位/借位
     top->sel = 0b001;
     for (int i = -8; i < 7; ++i) {
