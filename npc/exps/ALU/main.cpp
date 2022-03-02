@@ -52,11 +52,30 @@ int main() {
     top->B = 0b0001;
     step_and_dump_wave();
 
-    // 测试有符号的加法, 有符号加法只关心溢出 不关心进位
+    // 测试有符号的加法, 有符号加法只关心溢出 不关心进位/借位
     top->sel = 0b000;
     for (int i = -8; i < 7; ++i) {
         for (int j = -8; j < 7; ++j) {
             int sum = i + j;
+            int of = over_flow(sum);
+            sum &=0b1111;
+            top->A = i;
+            top->B = j;
+            step_and_dump_wave();
+            if (top->result != sum || top->overflow != of) {
+                printf("i: %d, j: %d, your_sum: %d, your_of: %d\n", i, j, top->result, top->overflow);
+                printf("sum should be: %d, of should be %d\n", sum, of);
+                sim_exit();
+                exit(0);
+            }
+        }
+    }
+
+    // 测试有符号的减法, 有符号的减法只关心溢出, 不关心进位/借位
+    top->sel = 0b000;
+    for (int i = -8; i < 7; ++i) {
+        for (int j = -8; j < 7; ++j) {
+            int sum = i - j;
             int of = over_flow(sum);
             sum &=0b1111;
             top->A = i;
