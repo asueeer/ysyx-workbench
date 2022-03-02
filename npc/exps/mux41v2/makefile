@@ -7,3 +7,6 @@ sim:
 
 wave:
 	gtkwave obj_dir/dump.vcd
+
+clean:
+	rm -rf obj_dir
