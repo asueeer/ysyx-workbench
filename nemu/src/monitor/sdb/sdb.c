@@ -40,6 +40,9 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
+    if (args==0){
+        printf("???");
+    }
     int n = atoi(args);
     printf("n is %d\n", n);
     return 0;
