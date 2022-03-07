@@ -60,8 +60,12 @@ static int cmd_info(char *args) {
     return 0;
 }
 
-static int cmd_x(char *args){
-
+static int cmd_x(char *args) {
+    char *ptr = strtok(args, delim);
+    int N = atoi(ptr);
+    ptr = strtok(NULL, delim);
+    int addr = atoi(ptr); // fixme: ptr might be an expr
+    printf("N is %d, addr is %x\n", N, addr);
     return 0;
 }
 
