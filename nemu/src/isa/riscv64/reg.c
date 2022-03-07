@@ -17,6 +17,7 @@ void isa_reg_display() {
         word_t reg_val = isa_reg_str2val(regs[i], &success);
         printf("%-12s 0x%-12lx %-12ld\n", regs[i], reg_val, reg_val);
     }
+    printf("%-12s 0x%-12lx %-12ld\n", "pc", cpu.pc, cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
