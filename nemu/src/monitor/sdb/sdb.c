@@ -66,7 +66,7 @@ static int cmd_x(char *args) {
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
     long addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
-    printf("N is %d, addr is %lx\n", N, addr);
+    printf("N is %d, addr is 0x%lx\n", N, addr);
     return 0;
 }
 
