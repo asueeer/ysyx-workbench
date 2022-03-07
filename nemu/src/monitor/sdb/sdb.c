@@ -52,8 +52,10 @@ static int cmd_si(char *args) {
     return 0;
 }
 
-static int cmd_ir(char *args) {
-    isa_reg_display();
+static int cmd_info(char *args) {
+    if (strcmp(args, "r")) {
+        isa_reg_display();
+    }
     return 0;
 }
 
@@ -70,7 +72,7 @@ static struct {
 
   /* TODO: Add more commands */
   {"si", "step by machine instructions rather than source lines", cmd_si},
-  {"i r", "register values", cmd_ir},
+  {"i", "display info about registers, watch points, etc.", cmd_info},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
