@@ -53,8 +53,11 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-    if (strcmp(args, "r")==0) {
-        isa_reg_display();
+    char *delim = " ";
+    char *ptr = strtok(args, delim);
+    if (strcmp(ptr, "i")) {
+        ptr = strtok(NULL, delim);
+        isa_reg_display(ptr);
     }
     return 0;
 }

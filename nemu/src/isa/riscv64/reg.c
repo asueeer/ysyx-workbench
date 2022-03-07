@@ -11,7 +11,7 @@ const char *regs[] = {
 
 word_t isa_reg_str2val(const char *s, bool *success);
 
-void isa_reg_display() {
+void isa_reg_display(char *reg_name) {
     for (int i = 0; i < 32; ++i) {
         bool success;
         word_t reg_val = isa_reg_str2val(regs[i], &success);
