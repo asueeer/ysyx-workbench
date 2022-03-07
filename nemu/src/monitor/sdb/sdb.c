@@ -82,7 +82,7 @@ void sdb_set_batch_mode() {
 }
 
 void sdb_mainloop() {
-    printf("i am in main loop\n");
+  // printf("i am in main loop\n");
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
