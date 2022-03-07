@@ -14,7 +14,7 @@ word_t isa_reg_str2val(const char *s, bool *success);
 void display_all_regs();
 
 void isa_reg_display(char *s) {
-    if (strlen(s) == 0) {
+    if (s==NULL) {
         display_all_regs();
     }
     if (strcmp(s, "pc")) {
