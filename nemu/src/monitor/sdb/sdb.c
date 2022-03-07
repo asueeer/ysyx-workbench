@@ -53,6 +53,7 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
+    printf("args is %s\n", args);
     printf("strcmp(args, \"r\") is %d\n", strcmp(args, "r"));
     if (strcmp(args, "r")) {
         isa_reg_display();
