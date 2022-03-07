@@ -2,6 +2,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdio.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -39,7 +40,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-    printf("args is %s\n", args);
+    int n = atoi(args);
+    printf("n is %d\n", n);
     return 0;
 }
 
