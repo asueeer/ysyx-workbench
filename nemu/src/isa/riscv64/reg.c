@@ -21,7 +21,7 @@ void isa_reg_display(char *s) {
     }
     bool success;
     word_t reg_val = isa_reg_str2val(s, &success);
-    if(success == 0){
+    if(success){
         display_reg_val(s, reg_val);
     }else{
         printf("no register named \"%s\"\n", s);
@@ -41,7 +41,7 @@ void display_reg_val(const char *reg_name, word_t reg_val){
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-    *success = 1;
+    *success = true;
     if(strcmp(s, "pc")==0){
         return cpu.pc;
     }
@@ -50,6 +50,6 @@ word_t isa_reg_str2val(const char *s, bool *success) {
             return gpr(i);
         }
     }
-    *success = 0;
+    *success = false;
     return 0;
 }
