@@ -68,8 +68,8 @@ static int cmd_x(char *args) {
     ptr = strtok(NULL, delim);
     word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
     for (int i = 0; i < N; ++i) {
-        printf("\x1b[94m0x%lx\x1b[0m \n", addr);
-        // printf("N is %d, addr is 0x%lx, val is 0x%lx\n", N, addr, paddr_read(addr, 4));
+        printf("\x1b[94m0x%lx\x1b[0m: 0x%lx \n", addr, paddr_read(addr, 4));
+        addr += N*32;
     }
     return 0;
 }
