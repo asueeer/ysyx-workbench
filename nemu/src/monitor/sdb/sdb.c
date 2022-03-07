@@ -40,12 +40,14 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-    if (args==0){
-        printf("???");
-        return 0;
+    int n = 1;
+    if (args != 0) {
+        n = atoi(args);
     }
-    int n = atoi(args);
-    printf("n is %d\n", n);
+    if (n == 0) {
+        printf("args \"%s\" might not a valid number?\n", args);
+    }
+    cpu_exec(n);
     return 0;
 }
 
