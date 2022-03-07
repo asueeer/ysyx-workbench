@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <stdio.h>
+#include <string.h>
 #include "local-include/reg.h"
 
 const char *regs[] = {
@@ -10,8 +11,18 @@ const char *regs[] = {
 };
 
 word_t isa_reg_str2val(const char *s, bool *success);
+void display_all_regs();
 
-void isa_reg_display(char *reg_name) {
+void isa_reg_display(char *s) {
+    if (strlen(s) == 0) {
+        display_all_regs();
+    }
+    if (strcmp(s, "pc")) {
+        printf("%-12s 0x%-12lx %-12ld\n", "pc", cpu.pc, cpu.pc);
+    }
+}
+
+void display_all_regs() {
     for (int i = 0; i < 32; ++i) {
         bool success;
         word_t reg_val = isa_reg_str2val(regs[i], &success);
