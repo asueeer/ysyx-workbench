@@ -58,7 +58,6 @@ void init_isa() {
 #else
 
 void init_isa() {
-    printf("hi fuck fuckaskjdhbdsajkhdasjkhdasjkhads\n");
 }
 
 #endif
