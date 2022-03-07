@@ -43,9 +43,10 @@ static int cmd_si(char *args) {
     int n = 1;
     if (args != 0) {
         n = atoi(args);
-    }
-    if (n == 0) {
-        printf("args \"%s\" might not a valid number?\n", args);
+        if (n == 0) {
+            printf("args \"%s\" might not a valid number?\n", args);
+            return 0;
+        }
     }
     cpu_exec(n);
     return 0;
