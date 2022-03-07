@@ -15,7 +15,7 @@ void isa_reg_display() {
     for (int i = 0; i < 32; ++i) {
         bool success;
         word_t reg_val = isa_reg_str2val(regs[i], &success);
-        printf("%s\t0x%lx\t\t%ld\n", regs[i], reg_val, reg_val);
+        printf("%s 0x%10lx %10ld\n", regs[i], reg_val, reg_val);
     }
 }
 
