@@ -39,9 +39,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-    // todo
-    printf("");
-    return -1;
+    printf("args is %s\n", args);
+    return 0;
 }
 
 static int cmd_help(char *args);
