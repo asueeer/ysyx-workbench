@@ -38,6 +38,7 @@ static uint8_t mbr[] = {
 };
 
 void init_isa() {
+    printf("hi");
   // put the MBR code to QEMU to enable protected mode
   bool ok = gdb_memcpy_to_qemu(0x7c00, mbr, sizeof(mbr));
   assert(ok == 1);
