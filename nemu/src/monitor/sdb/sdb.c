@@ -52,6 +52,11 @@ static int cmd_si(char *args) {
     return 0;
 }
 
+static int cmd_ir(char *args) {
+    isa_reg_display();
+    return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -64,7 +69,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si", "step by machine instructions rather than source lines", cmd_si}
+  {"si", "step by machine instructions rather than source lines", cmd_si},
+  {"i r", "register values", cmd_ir},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
