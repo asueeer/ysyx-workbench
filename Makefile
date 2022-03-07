@@ -1,4 +1,4 @@
-STUID = ysyx_22040114
+STUID = ysyx_20220114
 STUNAME = Yisu Wang
 
 # DO NOT modify the following code!!!

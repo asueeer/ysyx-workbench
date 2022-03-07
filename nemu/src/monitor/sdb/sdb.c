@@ -2,10 +2,13 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "sdb.h"
+#include "memory/paddr.h"
 
 static int is_batch_mode = false;
-
+static char *delim = " ";
 void init_regex();
 void init_wp_pool();
 
@@ -28,13 +31,47 @@ static char* rl_gets() {
 }
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
-  return 0;
+    cpu_exec(-1);
+    return 0;
 }
 
-
 static int cmd_q(char *args) {
-  return -1;
+    nemu_state.state = NEMU_END; // why?
+    return -1;
+}
+
+static int cmd_si(char *args) {
+    int n = 1;
+    if (args != 0) {
+        n = atoi(args);
+        if (n == 0) {
+            printf("args \"%s\" might not a valid number?\n", args);
+            return 0;
+        }
+    }
+    cpu_exec(n);
+    return 0;
+}
+
+static int cmd_info(char *args) {
+    char *ptr = strtok(args, delim);
+    if (strcmp(ptr, "i")) {
+        ptr = strtok(NULL, delim);
+        isa_reg_display(ptr);
+    }
+    return 0;
+}
+
+static int cmd_x(char *args) {
+    char *ptr = strtok(args, delim);
+    int N = atoi(ptr);
+    ptr = strtok(NULL, delim);
+    word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
+    for (int i = 0; i < N; ++i) {
+        printf("\x1b[94m0x%lx\x1b[0m: 0x%lx \n", addr, paddr_read(addr, 4));
+        addr += 4;
+    }
+    return 0;
 }
 
 static int cmd_help(char *args);
@@ -49,7 +86,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  {"si", "step by machine instructions rather than source lines", cmd_si},
+  {"i", "display info about registers, watch points, etc.", cmd_info},
+  {"x", "examine memory at address expr", cmd_x},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -82,6 +121,7 @@ void sdb_set_batch_mode() {
 }
 
 void sdb_mainloop() {
+  // printf("i am in main loop\n");
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
