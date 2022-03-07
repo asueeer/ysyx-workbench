@@ -11,7 +11,9 @@ const char *regs[] = {
 };
 
 word_t isa_reg_str2val(const char *s, bool *success);
+
 void display_all_regs();
+
 void display_reg_val(const char *reg_name, word_t reg_val);
 
 void isa_reg_display(char *s) {
@@ -21,28 +23,28 @@ void isa_reg_display(char *s) {
     }
     bool success;
     word_t reg_val = isa_reg_str2val(s, &success);
-    if(success){
+    if (success) {
         display_reg_val(s, reg_val);
-    }else{
+    } else {
         printf("no register named \"%s\"\n", s);
     }
 }
 
 void display_all_regs() {
     for (int i = 0; i < 32; ++i) {
-         display_reg_val(regs[i], gpr(i));
+        display_reg_val(regs[i], gpr(i));
     }
     display_reg_val("pc", cpu.pc);
 }
 
-void display_reg_val(const char *reg_name, word_t reg_val){
+void display_reg_val(const char *reg_name, word_t reg_val) {
     // %-12s 表示字符串输出, 至少占12个字符宽度, -负号表示强制左对齐
     printf("%-12s 0x%-12lx %-12ld\n", reg_name, reg_val, reg_val);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
     *success = true;
-    if(strcmp(s, "pc")==0){
+    if (strcmp(s, "pc") == 0) {
         return cpu.pc;
     }
     for (int i = 0; i < 32; ++i) {
