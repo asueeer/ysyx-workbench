@@ -3,6 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -64,8 +65,8 @@ static int cmd_x(char *args) {
     char *ptr = strtok(args, delim);
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
-    int addr = atoi(ptr); // fixme: ptr might be an expr
-    printf("N is %d, addr is %x\n", N, addr);
+    long addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
+    printf("N is %d, addr is %lx\n", N, addr);
     return 0;
 }
 
