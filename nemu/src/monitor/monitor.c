@@ -100,9 +100,7 @@ void init_monitor(int argc, char *argv[]) {
   IFDEF(CONFIG_DEVICE, init_device());
 
   /* Perform ISA dependent initialization. */
-    printf("init_isa start.\n");
   init_isa();
-  printf("init_isa done.\n");
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
 
