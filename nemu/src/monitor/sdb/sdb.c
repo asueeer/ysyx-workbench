@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "sdb.h"
+#include "memory/paddr.h"
 
 static int is_batch_mode = false;
 static char *delim = " ";
@@ -66,7 +67,7 @@ static int cmd_x(char *args) {
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
     word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
-    printf("N is %d, addr is 0x%lx\n", N, addr);
+    printf("N is %d, addr is 0x%lx, index is %p\n", N, addr, guest_to_host(addr));
     return 0;
 }
 
