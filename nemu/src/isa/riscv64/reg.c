@@ -19,18 +19,18 @@ void isa_reg_display(char *s) {
         display_all_regs();
         return;
     }
-    if (strcmp(s, "pc") == 0) {
-        display_reg_val("pc", cpu.pc);
-        return;
+    bool success;
+    word_t reg_val = isa_reg_str2val(s, &success);
+    if(success == 0){
+        display_reg_val(s, reg_val);
+    }else{
+        printf("no register named \"%s\"\n", s);
     }
-
 }
 
 void display_all_regs() {
     for (int i = 0; i < 32; ++i) {
-        bool success;
-        word_t reg_val = isa_reg_str2val(regs[i], &success);
-        display_reg_val(regs[i], reg_val);
+         display_reg_val(regs[i], gpr(i));
     }
     display_reg_val("pc", cpu.pc);
 }
@@ -41,6 +41,10 @@ void display_reg_val(const char *reg_name, word_t reg_val){
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+    *success = 1;
+    if(strcmp(s, "pc")==0){
+        return cpu.pc;
+    }
     for (int i = 0; i < 32; ++i) {
         if (strcmp(s, regs[i]) == 0) {
             return gpr(i);
