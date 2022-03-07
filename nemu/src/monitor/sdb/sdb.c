@@ -67,7 +67,10 @@ static int cmd_x(char *args) {
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
     word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
-    printf("N is %d, addr is 0x%lx, val is 0x%lx\n", N, addr, paddr_read(addr, 4));
+    for (int i = 0; i < N; ++i) {
+        printf("\x1b[31m0x%lx\x1b[0m \n", addr);
+        // printf("N is %d, addr is 0x%lx, val is 0x%lx\n", N, addr, paddr_read(addr, 4));
+    }
     return 0;
 }
 
