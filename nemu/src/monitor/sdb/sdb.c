@@ -34,7 +34,8 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
-  return -1;
+    nemu_state.state = NEMU_END; // why?
+    return -1;
 }
 
 static int cmd_si(char *args) {
@@ -88,6 +89,7 @@ void sdb_set_batch_mode() {
 }
 
 void sdb_mainloop() {
+  // printf("i am in main loop\n");
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
