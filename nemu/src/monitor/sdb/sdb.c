@@ -6,7 +6,7 @@
 #include "sdb.h"
 
 static int is_batch_mode = false;
-
+static char *delim = " ";
 void init_regex();
 void init_wp_pool();
 
@@ -29,10 +29,9 @@ static char* rl_gets() {
 }
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
-  return 0;
+    cpu_exec(-1);
+    return 0;
 }
-
 
 static int cmd_q(char *args) {
     nemu_state.state = NEMU_END; // why?
@@ -53,12 +52,16 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-    char *delim = " ";
     char *ptr = strtok(args, delim);
     if (strcmp(ptr, "i")) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
     }
+    return 0;
+}
+
+static int cmd_x(char *args){
+
     return 0;
 }
 
@@ -76,6 +79,7 @@ static struct {
   /* TODO: Add more commands */
   {"si", "step by machine instructions rather than source lines", cmd_si},
   {"i", "display info about registers, watch points, etc.", cmd_info},
+  {"x", "examine memory at address expr", cmd_x},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
