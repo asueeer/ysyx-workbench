@@ -13,8 +13,8 @@ word_t isa_reg_str2val(const char *s, bool *success);
 void isa_reg_display() {
     for (int i = 0; i < 32; i++){
         bool success = 1;
-        word_t reg_val = isa_reg_str2val(regs[0], &success);
-        printf("%s\t%lx\t%ld\n", regs[0], reg_val, reg_val);
+        word_t reg_val = isa_reg_str2val(regs[i], &success);
+        printf("%s\t%lx\t%ld\n", regs[i], reg_val, reg_val);
     }
 }
 
