@@ -15,13 +15,13 @@ void display_all_regs();
 void display_reg_val(const char *reg_name, word_t reg_val);
 
 void isa_reg_display(char *s) {
-    if (s==NULL) {
+    if (s == NULL) {
         display_all_regs();
         return;
     }
-    if (strcmp(s, "pc")) {
+    if (strcmp(s, "pc") == 0) {
         display_reg_val("pc", cpu.pc);
-        return ;
+        return;
     }
 
 }
