@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
         printf("argc[1] is %s\n", argv[1]);
         printf("u r trying to test expr func.\n");
     }
-    printf("u r trying to test expr func.\n");
     /* Start engine. */
     engine_start();
 
