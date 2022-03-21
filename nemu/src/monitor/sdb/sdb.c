@@ -92,6 +92,7 @@ static int cmd_test_expr(char *args) {
     int nbuf = 65536;
     char buf[nbuf];
     word_t res = 0;
+    int cnt = 0;
     for (int i = 0; i < nbuf; ++i) {
         bool success = true;
         if (fscanf(fp, "%ld %s\n", &res, buf) < 0) {
@@ -102,9 +103,10 @@ static int cmd_test_expr(char *args) {
             printf("test fail\n");
             assert(0);
         }
+        cnt++;
     }
     fclose(fp);
-    printf("test_expr ok.\n");
+    printf("test %d times, expr test success.\n", cnt);
     return 0;
 }
 
