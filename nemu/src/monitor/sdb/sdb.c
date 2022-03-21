@@ -63,6 +63,7 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
+    printf("args: %s\n", args);
     char *ptr = strtok(args, delim);
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
