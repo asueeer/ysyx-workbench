@@ -94,10 +94,9 @@ static int cmd_test_expr(char *args) {
     word_t res = 0;
     for (int i = 0; i < nbuf; ++i) {
         bool success = true;
-        if (fscanf(fp, "%ld %s\n", &res, buf) < 0){
+        if (fscanf(fp, "%ld %s\n", &res, buf) < 0) {
             continue;
         }
-        printf("ref: %ld, expr: %s\n", res, buf);
         if (res != expr(buf, &success) || !success) {
             printf("expr %s, res should be %ld, you give %ld\n", buf, res, expr(buf, &success));
             printf("test fail\n");
@@ -105,7 +104,7 @@ static int cmd_test_expr(char *args) {
         }
     }
     fclose(fp);
-
+    printf("test_expr ok.\n");
     return 0;
 }
 

@@ -170,7 +170,6 @@ int op_main(int p, int q) {
     int ret = -1;
     printf("\n");
     for (int i = p; i <= q; ++i) {
-        printf("cnt is %d\n", cnt);
         if (cnt < 0) {
             return -1;
         }
@@ -211,7 +210,6 @@ bool valid_parentheses(int p, int q) {
 }
 
 word_t eval(int p, int q, bool *success) {
-    printf("p is %d, q is %d\n", p, q);
     if (!*success) {
         return 0;
     }
@@ -219,7 +217,6 @@ word_t eval(int p, int q, bool *success) {
         return 0;
     }
     if (!valid_parentheses(p, q)) {
-        printf("valid_parentheses failed\n");
         *success = false;
         return 0;
     }
@@ -236,14 +233,12 @@ word_t eval(int p, int q, bool *success) {
         return eval(p + 1, q - 1, success);
     }
     int op = op_main(p, q);
-    printf("main op is %d\n", op);
     if (op < 0) {
         *success = false;
         return 0;
     }
     long val1 = eval(p, op - 1, success);
     long val2 = eval(op + 1, q, success);
-    printf("val1 is %ld, val2 is %ld\n", val1, val2);
     switch (tokens[op].type) {
         case '+':
             return (word_t) val1 + val2;
@@ -253,7 +248,6 @@ word_t eval(int p, int q, bool *success) {
             return (word_t) val1 * val2;
         case '/':
             if (val2 == 0) {
-                printf("exception: u r trying to divide by 0\n");
                 *success = false;
                 return 0;
             }
