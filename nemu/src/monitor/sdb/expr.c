@@ -96,16 +96,14 @@ static bool make_token(char *e) {
                         strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
                         tokens[nr_token].type = rules[i].token_type;
-                        printf("meet an int\n"); // remove me
+                        nr_token++;
                         break;
                     case TK_NOTYPE:
                         break;
                     default:
-                        printf("meet a symbol, type is %d\n", rules[i].token_type); // remove me
                         tokens[nr_token].type = rules[i].token_type;
-                        printf("tokens[nr_token].type is %d\n",  tokens[nr_token].type); // remove me
+                        nr_token++;
                 }
-                nr_token++;
                 break;
             }
         }
