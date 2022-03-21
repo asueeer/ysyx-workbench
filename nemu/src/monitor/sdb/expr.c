@@ -121,7 +121,9 @@ word_t expr(char *e, bool *success) {
         return 0;
     };
     /* TODO: Insert codes to evaluate the expression. */
+    printf("nr_token: %d\n", nr_token);
     for (int i = 0; i < nr_token; ++i) {
+
         printf("tokens[%d]: %s, type is %d\n", i, tokens[i].str, tokens->type);
     }
 
