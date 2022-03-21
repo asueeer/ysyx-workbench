@@ -92,8 +92,8 @@ static bool make_token(char *e) {
                     panic("make_token: substr_len > 30\n");
                 }
                 switch (rules[i].token_type) {
-                    TK_INT:
-                        strcpy(&tokens[nr_token].str, substr_start, substr_len);
+                    case TK_INT:
+                        strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
                         tokens[nr_token].type = rules[i].token_type;
                         break;
