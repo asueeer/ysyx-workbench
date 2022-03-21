@@ -188,11 +188,35 @@ int op_main(int p, int q) {
     return ret;
 }
 
+bool valid_parentheses(int p, int q){
+    int cnt = 0;
+    for (int i = p; i <= q; ++i) {
+        printf("cnt is %d\n", cnt);
+        if (cnt < 0) {
+            return false;
+        }
+        if (tokens[i].type == '(') {
+            cnt++;
+            continue;
+        }
+        if (tokens[i].type == ')') {
+            cnt--;
+            continue;
+        }
+    }
+    return true;
+}
+
 word_t eval(int p, int q, bool *success) {
-    if (!success) {
+    if (!*success) {
         return 0;
     }
     if (p > q) {
+        return 0;
+    }
+    if (!valid_parentheses(p, q)){
+        printf("valid_parentheses failed\n");
+        *success = false;
         return 0;
     }
     if (p == q) {
