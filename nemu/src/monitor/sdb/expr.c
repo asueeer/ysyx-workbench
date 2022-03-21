@@ -31,7 +31,7 @@ static struct rule {
         {"\\(",    '('},
         {"\\)",    ')'},
         {"[0-9]+", TK_INT},      // Integer
-        {"-[0-9]+", TK_INT},
+        {"\\-[0-9]+", TK_INT},
         {"==",     TK_EQ},       // equal
 };
 
