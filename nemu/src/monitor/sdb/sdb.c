@@ -87,6 +87,12 @@ static int cmd_p(char *args) {
     return 0;
 }
 
+static int cmd_test_expr(char *args) {
+    FILE *fp = fopen("input", "w");
+    fclose(fp);
+    return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -95,15 +101,16 @@ static struct {
 
     int (*handler)(char *);
 } cmd_table[] = {
-        {"help", "Display informations about all supported commands",     cmd_help},
-        {"c",    "Continue the execution of the program",                 cmd_c},
-        {"q",    "Exit NEMU",                                             cmd_q},
+        {"help",      "Display informations about all supported commands",     cmd_help},
+        {"c",         "Continue the execution of the program",                 cmd_c},
+        {"q",         "Exit NEMU",                                             cmd_q},
 
         /* TODO: Add more commands */
-        {"si",   "step by machine instructions rather than source lines", cmd_si},
-        {"i",    "display info about registers, watch points, etc.",      cmd_info},
-        {"x",    "examine memory at address expr",                        cmd_x},
-        {"p",    "examine an expression's value",                         cmd_p},
+        {"si",        "step by machine instructions rather than source lines", cmd_si},
+        {"i",         "display info about registers, watch points, etc.",      cmd_info},
+        {"x",         "examine memory at address expr",                        cmd_x},
+        {"p",         "examine an expression's value",                         cmd_p},
+        {"test_expr", "test the expr func is right",                           cmd_test_expr},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
