@@ -129,6 +129,9 @@ bool check_parentheses(int p, int q) {
         if (tokens[i].type == ')') {
             cnt--;
         }
+        if (cnt==0){
+            return false;
+        }
     }
     bool cond2 = cnt == 1;
     return cond1 && cond2;
