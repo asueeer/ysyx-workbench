@@ -22,15 +22,15 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",   TK_NOTYPE},   // spaces
-        {"\\+",  '+'},         // plus
-        {"\\-",  '-'},         // minus
-        {"\\*",  '*'},         // multiply
-        {"\\/",  '/'},         // divide
-        {"\\(",  '('},
-        {"\\)",  ')'},
-        {"[1-9]\\d+", TK_INT},      // Integer
-        {"==",   TK_EQ},       // equal
+        {" +",          TK_NOTYPE},   // spaces
+        {"\\+",         '+'},         // plus
+        {"\\-",         '-'},         // minus
+        {"\\*",         '*'},         // multiply
+        {"\\/",         '/'},         // divide
+        {"\\(",         '('},
+        {"\\)",         ')'},
+        {"^[1-9]\\d+$", TK_INT},      // Integer
+        {"==",          TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -117,7 +117,7 @@ static bool make_token(char *e) {
 
 word_t expr(char *e, bool *success) {
     printf("nr_token: %d\n", nr_token);
-    printf("e: %s\n",e);
+    printf("e: %s\n", e);
     if (!make_token(e)) {
         *success = false;
         return 0;
