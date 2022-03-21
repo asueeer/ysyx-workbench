@@ -206,6 +206,7 @@ word_t eval(int p, int q, bool *success) {
         return eval(p + 1, q - 1, success);
     }
     int op = op_main(p, q);
+    printf("main op is %d\n", op);
     if (op < 0) {
         success = false;
         return 0;
