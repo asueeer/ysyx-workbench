@@ -5,6 +5,7 @@
  */
 #include <regex.h>
 #include <string.h>
+#include <stdlib.h>
 
 enum {
     TK_NOTYPE = 256, TK_EQ, TK_INT,
@@ -22,15 +23,15 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",     TK_NOTYPE},   // spaces
-        {"\\+",    '+'},         // plus
-        {"\\-",    '-'},         // minus
-        {"\\*",    '*'},         // multiply
-        {"\\/",    '/'},         // divide
-        {"\\(",    '('},
-        {"\\)",    ')'},
-        {"[0-9]+", TK_INT},      // Integer
-        {"==",     TK_EQ},       // equal
+        {" +",       TK_NOTYPE},   // spaces
+        {"\\+",      '+'},         // plus
+        {"\\-",      '-'},         // minus
+        {"\\*",      '*'},         // multiply
+        {"\\/",      '/'},         // divide
+        {"\\(",      '('},
+        {"\\)",      ')'},
+        {"-?[0-9]+", TK_INT},      // Integer
+        {"==",       TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -117,23 +118,60 @@ static bool make_token(char *e) {
     return true;
 }
 
+bool check_parentheses(int p, int q) {
+    return tokens[p].type == '(' && tokens[q].type == ')';
+}
+
+/*
+ * the position of main op in the expr(p,q)
+*/
+int op_main(int p, int q) {
+    return 0;
+}
+
+word_t eval(int p, int q, bool *success) {
+    if (!success) {
+        return 0;
+    }
+    if (p > q) {
+        return 0;
+    }
+    if (p == q) {
+        // token should be a number, or it is a bad expression
+        if (tokens[p].type == TK_INT) {
+            return atoi(tokens[p].str);
+        } else {
+            *success = false;
+            return 0;
+        }
+    }
+    if (check_parentheses(p, q) == true) {
+        return eval(p + 1, q - 1, success);
+    }
+    int op = op_main(p, q);
+    word_t val1 = eval(p, op - 1, success);
+    word_t val2 = eval(op + 1, q, success);
+
+    switch (tokens[op].type) {
+        case '+':
+            return val1 + val2;
+        case '-':
+            return val1 - val2;
+        case '*':
+            return val1 * val2;
+        case '/':
+            return val1 / val2;
+        default:
+            *success = false;
+            return 0;
+    }
+}
 
 word_t expr(char *e, bool *success) {
-    // remove me
-    printf("nr_token: %d\n", nr_token);
-    printf("e: %s\n", e);
     if (!make_token(e)) {
         *success = false;
         return 0;
-    };
-    /* TODO: Insert codes to evaluate the expression. */
-
-    // todo remove me
-    for (int i = 0; i < nr_token; ++i) {
-
-        printf("tokens[%d]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
     }
-
-    *success = true;
-    return strtol(e, NULL, 16);
+    *success = true; // suppose it is true
+    return eval(0, nr_token, success);
 }
