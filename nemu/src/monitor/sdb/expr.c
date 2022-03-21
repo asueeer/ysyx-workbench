@@ -23,15 +23,16 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",       TK_NOTYPE},   // spaces
-        {"\\+",      '+'},         // plus
-        {"\\-",      '-'},         // minus
-        {"\\*",      '*'},         // multiply
-        {"\\/",      '/'},         // divide
-        {"\\(",      '('},
-        {"\\)",      ')'},
+        {" +",     TK_NOTYPE},   // spaces
+        {"\\+",    '+'},         // plus
+        {"\\-",    '-'},         // minus
+        {"\\*",    '*'},         // multiply
+        {"\\/",    '/'},         // divide
+        {"\\(",    '('},
+        {"\\)",    ')'},
         {"[0-9]+", TK_INT},      // Integer
-        {"==",       TK_EQ},       // equal
+        {"-[0-9]+", TK_INT},
+        {"==",     TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
