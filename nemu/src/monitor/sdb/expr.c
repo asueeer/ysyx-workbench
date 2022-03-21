@@ -238,7 +238,7 @@ word_t eval(int p, int q, bool *success) {
     int op = op_main(p, q);
     printf("main op is %d\n", op);
     if (op < 0) {
-        success = false;
+        *success = false;
         return 0;
     }
     long val1 = eval(p, op - 1, success);
