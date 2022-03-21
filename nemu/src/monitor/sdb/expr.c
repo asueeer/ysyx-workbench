@@ -166,6 +166,9 @@ int op_main(int p, int q) {
             cnt--;
             continue;
         }
+        if (cnt > 0){
+            continue;
+        }
         if (is_cacl_op(i) && (ret < 0 || leq(i, ret))) {
             ret = i;
         }
