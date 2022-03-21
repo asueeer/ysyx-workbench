@@ -96,12 +96,12 @@ static bool make_token(char *e) {
                         strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
                         tokens[nr_token].type = rules[i].token_type;
-                        printf("meet an int\n");
+                        printf("meet an int\n"); // remove me
                         break;
                     default:
-                        printf("meet a symbol, type is %d\n", rules[i].token_type);
+                        printf("meet a symbol, type is %d\n", rules[i].token_type); // remove me
                         tokens[nr_token].type = rules[i].token_type;
-                        printf("tokens[nr_token].type is %d\n",  tokens[nr_token].type);
+                        printf("tokens[nr_token].type is %d\n",  tokens[nr_token].type); // remove me
                 }
                 nr_token++;
                 break;
@@ -119,6 +119,7 @@ static bool make_token(char *e) {
 
 
 word_t expr(char *e, bool *success) {
+    // remove me
     printf("nr_token: %d\n", nr_token);
     printf("e: %s\n", e);
     if (!make_token(e)) {
@@ -127,7 +128,7 @@ word_t expr(char *e, bool *success) {
     };
     /* TODO: Insert codes to evaluate the expression. */
 
-
+    // todo remove me
     for (int i = 0; i < nr_token; ++i) {
 
         printf("tokens[%d]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
