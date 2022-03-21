@@ -23,16 +23,16 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",     TK_NOTYPE},   // spaces
-        {"\\+",    '+'},         // plus
+        {" +",      TK_NOTYPE},   // spaces
+        {"\\+",     '+'},         // plus
         {"-[0-9]+", TK_INT},
-        {"\\-",    '-'},         // minus
-        {"\\*",    '*'},         // multiply
-        {"\\/",    '/'},         // divide
-        {"\\(",    '('},
-        {"\\)",    ')'},
-        {"[0-9]+", TK_INT},      // Integer
-        {"==",     TK_EQ},       // equal
+        {"\\-",     '-'},         // minus
+        {"\\*",     '*'},         // multiply
+        {"\\/",     '/'},         // divide
+        {"\\(",     '('},
+        {"\\)",     ')'},
+        {"[0-9]+",  TK_INT},      // Integer
+        {"==",      TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -168,11 +168,19 @@ word_t eval(int p, int q, bool *success) {
     }
 }
 
+void token_info() {
+    for (int i = 0; i < nr_token; ++i) {
+        // Log("tokens[i]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
+    }
+}
+
 word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
         *success = false;
         return 0;
     }
+    token_info();
+
     *success = true; // suppose it is true
     return eval(0, nr_token, success);
 }
