@@ -93,7 +93,7 @@ static bool make_token(char *e) {
                 }
                 switch (rules[i].token_type) {
                     case TK_INT:
-                        // strncpy(tokens[nr_token].str, substr_start, substr_len);
+                        strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
                         tokens[nr_token].type = rules[i].token_type;
                         break;
@@ -116,12 +116,15 @@ static bool make_token(char *e) {
 
 
 word_t expr(char *e, bool *success) {
+    printf("nr_token: %d\n", nr_token);
+    printf("e: %s\n",e);
     if (!make_token(e)) {
         *success = false;
         return 0;
     };
     /* TODO: Insert codes to evaluate the expression. */
-    printf("nr_token: %d\n", nr_token);
+
+
     for (int i = 0; i < nr_token; ++i) {
 
         printf("tokens[%d]: %s, type is %d\n", i, tokens[i].str, tokens->type);
