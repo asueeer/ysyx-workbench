@@ -119,12 +119,12 @@ word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
         *success = false;
         return 0;
-    }
-
+    };
     /* TODO: Insert codes to evaluate the expression. */
     for (int i = 0; i < nr_token; ++i) {
         printf("tokens[%d]: %s, type is %d\n", i, tokens[i].str, tokens->type);
     }
 
-    return 0;
+    *success = true;
+    return strtol(e, NULL, 16);
 }
