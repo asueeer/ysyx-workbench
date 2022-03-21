@@ -181,7 +181,6 @@ word_t eval(int p, int q, bool *success) {
     if (p > q) {
         return 0;
     }
-    printf("hi\n");
     if (p == q) {
         printf("TK_INT is %d\n", TK_INT);
         // token should be a number, or it is a bad expression
@@ -233,5 +232,5 @@ word_t expr(char *e, bool *success) {
     token_info();
 
     *success = true; // suppose it is true
-    return eval(0, nr_token, success);
+    return eval(0, nr_token - 1, success);
 }
