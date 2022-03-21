@@ -66,12 +66,21 @@ static int cmd_x(char *args) {
     char *ptr = strtok(args, delim);
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
-    printf("ptr is: %s\n", ptr);
     word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
     for (int i = 0; i < N; ++i) {
         printf("\x1b[94m0x%lx\x1b[0m: 0x%lx \n", addr, paddr_read(addr, 4));
         addr += 4;
     }
+    return 0;
+}
+
+static int cmd_p(char *args){
+    bool success = false;
+    word_t val = expr(args, &success);
+    if (!success){
+        printf("cmp_p: parse expression failed\n");
+    }
+    printf("the val is 0x%lx\n", val);
     return 0;
 }
 
@@ -90,6 +99,7 @@ static struct {
   {"si", "step by machine instructions rather than source lines", cmd_si},
   {"i", "display info about registers, watch points, etc.", cmd_info},
   {"x", "examine memory at address expr", cmd_x},
+  {"p", "examine an expression's value", cmd_p},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
