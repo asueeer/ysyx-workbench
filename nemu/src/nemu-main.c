@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     init_monitor(argc, argv);
 #endif
 
-    if (argc == 2 && strcmp(argv[1], "test-expr")==1) {
+    if (argc == 2 && strcmp(argv[1], "test-expr")==0) {
         printf("u r trying to test expr func.\n");
     }
     printf("u r trying to test expr func.\n");
