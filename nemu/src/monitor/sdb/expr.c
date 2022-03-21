@@ -6,7 +6,7 @@
 #include <regex.h>
 #include <string.h>
 #include <stdlib.h>
-#define NTOKENS 32
+#define NTOKENS 320
 enum {
     TK_NOTYPE = 256, TK_EQ, TK_INT,
 
