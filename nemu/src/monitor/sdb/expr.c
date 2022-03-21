@@ -182,10 +182,8 @@ word_t eval(int p, int q, bool *success) {
         return 0;
     }
     if (p == q) {
-        printf("TK_INT is %d\n", TK_INT);
         // token should be a number, or it is a bad expression
         if (tokens[p].type == TK_INT) {
-            printf("hi there\n");
             return atoi(tokens[p].str);
         } else {
             *success = false;

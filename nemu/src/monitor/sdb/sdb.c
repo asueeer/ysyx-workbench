@@ -83,7 +83,7 @@ static int cmd_p(char *args) {
         printf("cmp_p: parse expression failed\n");
         return 0;
     }
-    printf("the val is 0x%lx\n", val);
+    printf("the val is 0x%lx \t %ld\n", val, val);
     return 0;
 }
 
