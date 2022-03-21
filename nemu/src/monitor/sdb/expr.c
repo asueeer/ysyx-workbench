@@ -27,7 +27,6 @@ static struct rule {
 
         {" +",      TK_NOTYPE},   // spaces
         {"\\+",     '+'},         // plus
-        {"-[0-9]+", TK_INT},
         {"\\-",     '-'},         // minus
         {"\\*",     '*'},         // multiply
         {"\\/",     '/'},         // divide
