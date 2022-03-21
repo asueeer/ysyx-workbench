@@ -204,6 +204,7 @@ bool valid_parentheses(int p, int q){
             continue;
         }
     }
+    printf("\n");
     return true;
 }
 
