@@ -192,6 +192,7 @@ int op_main(int p, int q) {
 }
 
 bool valid_parentheses(int p, int q){
+    printf("p is %d, q is %d\n", p, q);
     int cnt = 0;
     for (int i = p; i <= q; ++i) {
         printf("cnt is %d\n", cnt);
