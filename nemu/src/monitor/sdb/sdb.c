@@ -110,7 +110,7 @@ static struct {
         {"i",         "display info about registers, watch points, etc.",      cmd_info},
         {"x",         "examine memory at address expr",                        cmd_x},
         {"p",         "examine an expression's value",                         cmd_p},
-        {"test_expr", "test the expr func is right",                           cmd_test_expr},
+        {"t_expr", "test the expr func is right",                           cmd_test_expr},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
