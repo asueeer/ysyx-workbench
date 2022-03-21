@@ -28,11 +28,11 @@ static struct rule {
         {" +",       TK_NOTYPE},   // spaces
         {"\\+",      '+'},         // plus
         {"\\-",      '-'},         // minus
-        {"-?[0-9]+", TK_INT},      // Integer
         {"\\*",      '*'},         // multiply
         {"\\/",      '/'},         // divide
         {"\\(",      '('},
         {"\\)",      ')'},
+        {"[0-9]+", TK_INT},      // Integer
         {"==",       TK_EQ},       // equal
 };
 
