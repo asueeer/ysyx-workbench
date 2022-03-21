@@ -6,7 +6,7 @@
 #include <regex.h>
 #include <string.h>
 #include <stdlib.h>
-
+#define NTOKENS 32
 enum {
     TK_NOTYPE = 256, TK_EQ, TK_INT,
 
@@ -62,7 +62,7 @@ typedef struct token {
     char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[NTOKENS] __attribute__((used)) = {};
 static int nr_token __attribute__((used)) = 0;
 
 static bool make_token(char *e) {
@@ -76,7 +76,7 @@ static bool make_token(char *e) {
         /* Try all rules one by one. */
         for (i = 0; i < NR_REGEX; i++) {
             if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-                if (nr_token >= 32) {
+                if (nr_token >= NTOKENS) {
                     panic("too much tokens\n");
                 }
                 char *substr_start = e + position;
