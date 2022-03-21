@@ -14,6 +14,8 @@ enum {
 
 };
 
+void token_info();
+
 static struct rule {
     const char *regex;
     int token_type;
