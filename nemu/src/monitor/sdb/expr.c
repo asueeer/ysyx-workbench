@@ -172,7 +172,7 @@ word_t eval(int p, int q, bool *success) {
 
 void token_info() {
     for (int i = 0; i < nr_token; ++i) {
-        // Log("tokens[i]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
+        Log("tokens[%d]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
     }
 }
 
