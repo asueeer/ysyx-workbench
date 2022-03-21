@@ -6,6 +6,7 @@
 #include <regex.h>
 #include <string.h>
 #include <stdlib.h>
+
 #define NTOKENS 320
 enum {
     TK_NOTYPE = 256, TK_EQ, TK_INT,
@@ -129,7 +130,7 @@ bool check_parentheses(int p, int q) {
         if (tokens[i].type == ')') {
             cnt--;
         }
-        if (cnt==0){
+        if (cnt == 0) {
             return false;
         }
     }
@@ -191,7 +192,7 @@ int op_main(int p, int q) {
     return ret;
 }
 
-bool valid_parentheses(int p, int q){
+bool valid_parentheses(int p, int q) {
     int cnt = 0;
     for (int i = p; i <= q; ++i) {
         if (cnt < 0) {
@@ -217,7 +218,7 @@ word_t eval(int p, int q, bool *success) {
     if (p > q) {
         return 0;
     }
-    if (!valid_parentheses(p, q)){
+    if (!valid_parentheses(p, q)) {
         printf("valid_parentheses failed\n");
         *success = false;
         return 0;
@@ -240,22 +241,22 @@ word_t eval(int p, int q, bool *success) {
         success = false;
         return 0;
     }
-    word_t val1 = eval(p, op - 1, success);
-    word_t val2 = eval(op + 1, q, success);
+    long val1 = eval(p, op - 1, success);
+    long val2 = eval(op + 1, q, success);
     printf("val1 is %ld, val2 is %ld\n", val1, val2);
     switch (tokens[op].type) {
         case '+':
-            return val1 + val2;
+            return (word_t) val1 + val2;
         case '-':
-            return val1 - val2;
+            return (word_t) val1 - val2;
         case '*':
-            return val1 * val2;
+            return (word_t) val1 * val2;
         case '/':
             if (val2 == 0) {
                 return 0;
                 panic("exception: u r trying to divide by 0\n");
             }
-            return val1 / val2;
+            return (word_t)(val1 / val2);
         default:
             *success = false;
             return 0;
