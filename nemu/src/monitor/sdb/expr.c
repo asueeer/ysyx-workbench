@@ -122,7 +122,7 @@ bool check_parentheses(int p, int q) {
         return false;
     }
     int cnt = 1;
-    for (int i = 1; i < q; ++i) {
+    for (int i = p; i < q; ++i) {
         if (tokens[i].type == '(') {
             cnt++;
         }
