@@ -164,6 +164,7 @@ int op_main(int p, int q) {
      * */
     int cnt = 0;
     int ret = -1;
+    printf("\n");
     for (int i = p; i <= q; ++i) {
         printf("cnt is %d\n", cnt);
         if (cnt < 0) {
