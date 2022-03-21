@@ -183,6 +183,7 @@ word_t eval(int p, int q, bool *success) {
     }
     printf("hi\n");
     if (p == q) {
+        printf("TK_INT is %d\n", TK_INT);
         // token should be a number, or it is a bad expression
         if (tokens[p].type == TK_INT) {
             printf("hi there\n");
