@@ -99,6 +99,7 @@ static bool make_token(char *e) {
                         printf("meet an int\n");
                         break;
                     default:
+                        printf("meet a symbol, type is %d\n", rules[i].token_type);
                         tokens[nr_token].type = rules[i].token_type;
                 }
                 nr_token++;
