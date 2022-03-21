@@ -25,15 +25,15 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",       TK_NOTYPE},   // spaces
-        {"\\+",      '+'},         // plus
-        {"\\-",      '-'},         // minus
-        {"\\*",      '*'},         // multiply
-        {"\\/",      '/'},         // divide
-        {"\\(",      '('},
-        {"\\)",      ')'},
+        {" +",     TK_NOTYPE},   // spaces
+        {"\\+",    '+'},         // plus
+        {"\\-",    '-'},         // minus
+        {"\\*",    '*'},         // multiply
+        {"\\/",    '/'},         // divide
+        {"\\(",    '('},
+        {"\\)",    ')'},
         {"[0-9]+", TK_INT},      // Integer
-        {"==",       TK_EQ},       // equal
+        {"==",     TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -87,10 +87,6 @@ static bool make_token(char *e) {
 
                 position += substr_len;
 
-                /* TODO: Now a new token is recognized with rules[i]. Add codes
-                 * to record the token in the array `tokens'. For certain types
-                 * of tokens, some extra actions should be performed.
-                 */
                 if (substr_len > 30) {
                     panic("make_token: substr_len > 30\n");
                 }
@@ -121,7 +117,21 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q) {
-    return tokens[p].type == '(' && tokens[q].type == ')';
+    bool cond1 = tokens[p].type == '(' && tokens[q].type == ')';
+    if (!cond1) {
+        return false;
+    }
+    int cnt = 1;
+    for (int i = 1; i < q; ++i) {
+        if (tokens[i].type == '(') {
+            cnt++;
+        }
+        if (tokens[i].type == ')') {
+            cnt--;
+        }
+    }
+    bool cond2 = cnt == 1;
+    return cond1 && cond2;
 }
 
 
