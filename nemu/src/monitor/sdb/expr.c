@@ -32,7 +32,8 @@ static struct rule {
         {"\\/",     '/'},         // divide
         {"\\(",     '('},
         {"\\)",     ')'},
-        {"[0-9]+",  TK_INT},      // Integer
+        {"-?[0-9]+", TK_INT},      // Integer
+        //{"[0-9]+",  TK_INT},      // Integer
         {"==",      TK_EQ},       // equal
 };
 
@@ -166,7 +167,7 @@ int op_main(int p, int q) {
             cnt--;
             continue;
         }
-        if (cnt > 0){
+        if (cnt > 0) {
             continue;
         }
         if (is_cacl_op(i) && (ret < 0 || leq(i, ret))) {
@@ -200,7 +201,6 @@ word_t eval(int p, int q, bool *success) {
         success = false;
         return 0;
     }
-    printf("main op is %d\n", op);
     word_t val1 = eval(p, op - 1, success);
     word_t val2 = eval(op + 1, q, success);
 
