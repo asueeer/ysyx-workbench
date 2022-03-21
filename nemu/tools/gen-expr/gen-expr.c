@@ -50,7 +50,7 @@ static int choose(int a) {
 }
 
 static void gen_rand_op() {
-    char ops[4] = {'+', '-', '*', '+'};
+    char ops[4] = {'+', '-', '*', '/'};
     buf[buf_used] = ops[choose(4)];
     buf_used++;
     buf[buf_used] = '\0';

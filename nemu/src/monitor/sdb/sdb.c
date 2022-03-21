@@ -100,6 +100,9 @@ static int cmd_test_expr(char *args) {
         }
         if (res != expr(buf, &success) || !success) {
             printf("expr %s, res should be %ld, you give %ld\n", buf, res, expr(buf, &success));
+            if (!success) {
+                continue;
+            }
             printf("test fail\n");
             assert(0);
         }
