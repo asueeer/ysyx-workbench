@@ -50,7 +50,7 @@ static int choose(int a) {
 }
 
 static void gen_rand_op() {
-    char ops[4] = {'+', '-', '*', '/'};
+    char ops[4] = {'+', '-', '*', '+'};
     buf[buf_used] = ops[choose(4)];
     buf_used++;
     buf[buf_used] = '\0';
@@ -136,14 +136,11 @@ int main(int argc, char *argv[]) {
         int result;
         fscanf(fp, "%d", &result);
         pclose(fp);
-        if (result == 0) {
+        if (result <= 0) {
             clear_buf();
             continue;
         }
-        if (result < 0) {
-            clear_buf();
-            continue;
-        }
+        // overflow
         if (result > 100000){
             clear_buf();
             continue;

@@ -253,7 +253,9 @@ word_t eval(int p, int q, bool *success) {
             return (word_t) val1 * val2;
         case '/':
             if (val2 == 0) {
-                panic("exception: u r trying to divide by 0\n");
+                printf("exception: u r trying to divide by 0\n");
+                *success = false;
+                return 0;
             }
             return (word_t)(val1 / val2);
         default:
