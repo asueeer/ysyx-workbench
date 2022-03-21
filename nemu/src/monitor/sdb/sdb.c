@@ -66,7 +66,7 @@ static int cmd_x(char *args) {
     char *ptr = strtok(args, delim);
     int N = atoi(ptr);
     ptr = strtok(NULL, delim);
-    word_t addr = strtol(ptr, NULL, 16); // fixme: ptr might be an expr
+    word_t addr = strtol(ptr, NULL, 16); // cmpl me: ptr might be an expr
     for (int i = 0; i < N; ++i) {
         printf("\x1b[94m0x%lx\x1b[0m: 0x%lx \n", addr, paddr_read(addr, 4));
         addr += 4;

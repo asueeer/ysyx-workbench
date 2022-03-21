@@ -4,6 +4,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
+#include <string.h>
 
 enum {
     TK_NOTYPE = 256, TK_EQ, TK_INT,
@@ -72,6 +73,9 @@ static bool make_token(char *e) {
         /* Try all rules one by one. */
         for (i = 0; i < NR_REGEX; i++) {
             if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+                if (nr_token >= 32) {
+                    panic("too much tokens\n");
+                }
                 char *substr_start = e + position;
                 int substr_len = pmatch.rm_eo;
 
@@ -84,12 +88,19 @@ static bool make_token(char *e) {
                  * to record the token in the array `tokens'. For certain types
                  * of tokens, some extra actions should be performed.
                  */
-
-                switch (rules[i].token_type) {
-                    default:
-                        TODO();
+                if (substr_len > 30) {
+                    panic("make_token: substr_len > 30\n");
                 }
-
+                switch (rules[i].token_type) {
+                    TK_INT:
+                        strcpy(&tokens[nr_token].str, substr_start, substr_len);
+                        tokens[nr_token].str[substr_len] = '\0';
+                        tokens[nr_token].type = rules[i].token_type;
+                        break;
+                    default:
+                        tokens[nr_token].type = rules[i].token_type;
+                }
+                nr_token++;
                 break;
             }
         }
