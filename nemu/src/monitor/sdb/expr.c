@@ -144,7 +144,7 @@ bool check_parentheses(int p, int q) {
 bool leq(int op1, int op2) {
     int type1 = tokens[op1].type;
     int type2 = tokens[op2].type;
-    bool flag1 = type1 == '*' || type2 == '/';
+    bool flag1 = type1 == '*' || type1 == '/';
     bool flag2 = type2 == '+' || type2 == '-';
     return !(flag1 && flag2);
 }
