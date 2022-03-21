@@ -88,8 +88,9 @@ static int cmd_p(char *args) {
 }
 
 static int cmd_test_expr(char *args) {
-    FILE *fp = fopen("input", "w");
+    FILE *fp = fopen("/tmp/input", "w");
     fclose(fp);
+
     return 0;
 }
 
