@@ -185,6 +185,9 @@ int op_main(int p, int q) {
             ret = i;
         }
     }
+    if (ret==-1){
+        assert(0);
+    }
     return ret;
 }
 
