@@ -125,11 +125,53 @@ bool check_parentheses(int p, int q) {
     return tokens[p].type == '(' && tokens[q].type == ')';
 }
 
+
+/**
+ * the operation op1 is less than op2 or equal it
+ * */
+bool leq(int op1, int op2) {
+    int type1 = tokens[op1].type;
+    int type2 = tokens[op2].type;
+    bool flag1 = type1 == '*' || type2 == '/';
+    bool flag2 = type2 == '+' || type2 == '-';
+    return !(flag1 && flag2);
+}
+
+bool is_cacl_op(int op) {
+    int type = tokens[op].type;
+    bool flag1 = type == '*' || type == '/';
+    bool flag2 = type == '-' || type == '+';
+    return flag1 || flag2;
+}
+
 /*
  * the position of main op in the expr(p,q)
 */
 int op_main(int p, int q) {
-    return 0;
+    /**
+     * the parentheses counter
+     * if meet '(': cnt++;
+     * if meet ')': cnt--;
+     * */
+    int cnt = 0;
+    int ret = -1;
+    for (int i = p; i <= q; ++i) {
+        if (cnt < 0) {
+            return -1;
+        }
+        if (tokens[i].type == '(') {
+            cnt++;
+            continue;
+        }
+        if (tokens[i].type == ')') {
+            cnt--;
+            continue;
+        }
+        if (is_cacl_op(i) && (ret < 0 || leq(i, ret))) {
+            ret = i;
+        }
+    }
+    return ret;
 }
 
 word_t eval(int p, int q, bool *success) {
@@ -152,6 +194,10 @@ word_t eval(int p, int q, bool *success) {
         return eval(p + 1, q - 1, success);
     }
     int op = op_main(p, q);
+    if (op < 0) {
+        success = false;
+        return 0;
+    }
     word_t val1 = eval(p, op - 1, success);
     word_t val2 = eval(op + 1, q, success);
 
