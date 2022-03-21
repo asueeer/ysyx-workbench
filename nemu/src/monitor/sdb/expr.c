@@ -197,6 +197,7 @@ word_t eval(int p, int q, bool *success) {
         success = false;
         return 0;
     }
+    printf("main op is %d\n", op);
     word_t val1 = eval(p, op - 1, success);
     word_t val2 = eval(op + 1, q, success);
 
