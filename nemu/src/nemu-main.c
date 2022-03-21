@@ -17,10 +17,6 @@ int main(int argc, char *argv[]) {
     init_monitor(argc, argv);
 #endif
 
-    if (argc == 2 && (strcmp(argv[1], "test-expr") == 0)) {
-        printf("argc[1] is %s\n", argv[1]);
-        printf("u r trying to test expr func.\n");
-    }
     /* Start engine. */
     engine_start();
 
