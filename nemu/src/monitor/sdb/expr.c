@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #define NTOKENS 32
-#define N_OP 7
+
 
 enum {
     TK_NOTYPE = 256,
@@ -23,7 +23,7 @@ enum {
 
     /* TODO: Add more token types */
 };
-
+#define N_OP 7
 static int operator[] = {
         '+',
         '-',
@@ -32,6 +32,11 @@ static int operator[] = {
         TK_AND,
         TK_EQ,
         TK_NEQ,
+};
+#define N_SINGLE_OP 2
+static int single_op[] = {
+        TK_DEREF,
+        TK_NEGATIVE,
 };
 
 
@@ -180,6 +185,15 @@ bool is_cacl_op(int op) {
     return false;
 }
 
+bool is_single_op(int op) {
+    for (int i = 0; i < N_SINGLE_OP; ++i) {
+        if (tokens[i].type == single_op[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*
  * the position of main op in the expr(p,q)
 */
@@ -248,6 +262,16 @@ word_t eval(int p, int q, bool *success) {
             return atoi(tokens[p].str);
         } else if (tokens[p].type == TK_INT_HEX) {
             return strtol(tokens[p].str, NULL, 16);
+        } else {
+            *success = false;
+            return 0;
+        }
+    }
+    if (p + 1 == q) {
+        if (is_single_op(p)) {
+            if (tokens[p].type == TK_NEGATIVE) {
+                return -eval(p + 1, q, success);
+            }
         } else {
             *success = false;
             return 0;
