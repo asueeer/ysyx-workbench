@@ -38,7 +38,7 @@ static struct rule {
         {"\\/",    '/'},         // divide
         {"\\(",    '('},
         {"\\)",    ')'},
-        {"\\$.+",    TK_REG}, // reg
+        {"\\$\\w",    TK_REG}, // reg
         {"[0-9]+", TK_INT},      // Integer
         {"==",     TK_EQ},       // equal
 };
