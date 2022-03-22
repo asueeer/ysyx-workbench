@@ -12,10 +12,12 @@ enum {
     TK_NOTYPE = 256,
     TK_EQ,
     TK_INT,
+    TK_INT_HEX,
     TK_REG,
     TK_DEREF,
     TK_NEGATIVE,
     TK_AND,
+
     /* TODO: Add more token types */
 };
 
@@ -29,17 +31,18 @@ static struct rule {
         /* TODO: Add more rules.
          * Pay attention to the precedence level of different rules.
          */
-        {" +",          TK_NOTYPE},   // spaces
-        {"\\+",         '+'},         // plus
-        {"\\-",         '-'},         // minus
-        {"\\*",         '*'},         // multiply
-        {"\\/",         '/'},         // divide
-        {"\\(",         '('},
-        {"\\)",         ')'},
-        {"\\$\\w+",     TK_REG}, // reg
-        {"(0x)?[0-9]+", TK_INT},      // Integer
-        {"==",          TK_EQ},       // equal
-        {"&&",          TK_AND},
+        {" +",       TK_NOTYPE},   // spaces
+        {"\\+",      '+'},         // plus
+        {"\\-",      '-'},         // minus
+        {"\\*",      '*'},         // multiply
+        {"\\/",      '/'},         // divide
+        {"\\(",      '('},
+        {"\\)",      ')'},
+        {"\\$\\w+",  TK_REG},      // reg
+        {"[0-9]+",   TK_INT},
+        {"0x[0-9]+", TK_INT_HEX},      // Integer
+        {"==",       TK_EQ},       // equal
+        {"&&",       TK_AND},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -170,7 +173,6 @@ int op_main(int p, int q) {
      * */
     int cnt = 0;
     int ret = -1;
-    printf("\n");
     for (int i = p; i <= q; ++i) {
         if (cnt < 0) {
             return -1;
@@ -226,6 +228,8 @@ word_t eval(int p, int q, bool *success) {
         // token should be a number, or it is a bad expression
         if (tokens[p].type == TK_INT) {
             return atoi(tokens[p].str);
+        } else if (tokens[p].type == TK_INT_HEX) {
+            return strtol(tokens[p].str, NULL, 16);
         } else {
             *success = false;
             return 0;
