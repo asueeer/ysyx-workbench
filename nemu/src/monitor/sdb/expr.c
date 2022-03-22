@@ -7,12 +7,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define NTOKENS 320
+#define NTOKENS 32
 enum {
-    TK_NOTYPE = 256, TK_EQ, TK_INT,
-
+    TK_NOTYPE = 256,
+    TK_EQ,
+    TK_INT,
+    TK_INT_HEX,
+    TK_REG,
+    TK_DEREF,
+    TK_NEGATIVE,
+    TK_AND,
     /* TODO: Add more token types */
-
 };
 
 void token_info();
@@ -33,6 +38,7 @@ static struct rule {
         {"\\/",    '/'},         // divide
         {"\\(",    '('},
         {"\\)",    ')'},
+        {"$.+",    TK_REG}, // reg
         {"[0-9]+", TK_INT},      // Integer
         {"==",     TK_EQ},       // equal
 };
@@ -237,21 +243,21 @@ word_t eval(int p, int q, bool *success) {
         *success = false;
         return 0;
     }
-    word_t val1 = eval(p, op - 1, success);
-    word_t val2 = eval(op + 1, q, success);
+    long val1 = eval(p, op - 1, success);
+    long val2 = eval(op + 1, q, success);
     switch (tokens[op].type) {
         case '+':
-            return val1 + val2;
+            return (word_t) val1 + val2;
         case '-':
-            return val1 - val2;
+            return (word_t) val1 - val2;
         case '*':
-            return val1 * val2;
+            return (word_t) val1 * val2;
         case '/':
             if (val2 == 0) {
                 *success = false;
                 return 0;
             }
-            return val1 / val2;
+            return (word_t) val1 / val2;
         default:
             *success = false;
             return 0;
@@ -260,6 +266,9 @@ word_t eval(int p, int q, bool *success) {
 
 void token_info() {
     for (int i = 0; i < nr_token; ++i) {
+        if (tokens[i].type == TK_REG) {
+            printf("match a reg\n");
+        }
         Log("tokens[%d]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
     }
 }
