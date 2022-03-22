@@ -31,16 +31,16 @@ static struct rule {
          * Pay attention to the precedence level of different rules.
          */
 
-        {" +",     TK_NOTYPE},   // spaces
-        {"\\+",    '+'},         // plus
-        {"\\-",    '-'},         // minus
-        {"\\*",    '*'},         // multiply
-        {"\\/",    '/'},         // divide
-        {"\\(",    '('},
-        {"\\)",    ')'},
-        {"\\$\\w+",    TK_REG}, // reg
-        {"[0-9]+", TK_INT},      // Integer
-        {"==",     TK_EQ},       // equal
+        {" +",      TK_NOTYPE},   // spaces
+        {"\\+",     '+'},         // plus
+        {"\\-",     '-'},         // minus
+        {"\\*",     '*'},         // multiply
+        {"\\/",     '/'},         // divide
+        {"\\(",     '('},
+        {"\\)",     ')'},
+        {"\\$\\w+", TK_REG}, // reg
+        {"[0-9]+",  TK_INT},      // Integer
+        {"==",      TK_EQ},       // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -98,6 +98,7 @@ static bool make_token(char *e) {
                     panic("make_token: substr_len > 30\n");
                 }
                 switch (rules[i].token_type) {
+                    case TK_REG:
                     case TK_INT:
                         strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
