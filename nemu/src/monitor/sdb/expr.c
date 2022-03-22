@@ -6,6 +6,7 @@
 #include <regex.h>
 #include <string.h>
 #include <stdlib.h>
+#include "memory/paddr.h"
 
 #define NTOKENS 32
 
@@ -307,7 +308,15 @@ word_t eval(int p, int q, bool *success) {
         if (tokens[p].type == TK_NEGATIVE) {
             return -eval(p + 1, q, success);
         }
-        // todo
+        if (tokens[p].type == TK_DEREF) {
+            word_t addr = eval(p + 1, q, success);
+            if (!*success) {
+                return 0;
+            }
+            return paddr_read(addr, 4);
+        }
+        *success = false;
+        return 0;
     }
     if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1, success);
