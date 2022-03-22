@@ -29,9 +29,9 @@ static int operator[] = {
         '-',
         '*',
         '/',
-        TK_AND,
         TK_EQ,
         TK_NEQ,
+        TK_AND,
 };
 #define N_SINGLE_OP 2
 static int single_op[] = {
@@ -39,6 +39,22 @@ static int single_op[] = {
         TK_NEGATIVE,
 };
 
+static int pri[N_OP][N_OP] = {
+        /*                    +        -       *        /       ==       !=      &&         */
+        /* + */      {'=', '>', '<', '<', '>', '>', '>'},
+        /* - */
+                     {'<', '=', '<', '<', '>', '>', '>'},
+        /* * */
+                     {'>', '>', '=', '<', '>', '>', '>'},
+        /* / */
+                     {'>', '>', '>', '=', '>', '>', '>'},
+        /* == */
+                     {'<', '<', '<', '<', '=', '>', '>'},
+        /* != */
+                     {'<', '<', '<', '<', '<', '=', '>'},
+        /* && */
+                     {'<', '<', '<', '<', '<', '<', '='},
+};
 
 void token_info();
 
@@ -177,9 +193,20 @@ bool check_parentheses(int p, int q) {
 bool leq(int op1, int op2) {
     int type1 = tokens[op1].type;
     int type2 = tokens[op2].type;
-    bool flag1 = type1 == '*' || type1 == '/';
-    bool flag2 = type2 == '+' || type2 == '-';
-    return !(flag1 && flag2);
+    int pos1 = -1;
+    int pos2 = -1;
+    for (int i = 0; i < N_OP; ++i) {
+        if (type1 == operator[i]) {
+            pos1 = i;
+        }
+        if (type2 == operator[i]) {
+            pos2 = i;
+        }
+    }
+    if (pos1 < 0 || pos2 < 0) {
+        return false;
+    }
+    return pri[pos1][pos2] == '<' || pri[pos1][pos2] == '=';
 }
 
 bool is_cacl_op(int op) {
