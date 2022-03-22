@@ -98,18 +98,14 @@ static bool make_token(char *e) {
                     panic("make_token: substr_len > 30\n");
                 }
                 switch (rules[i].token_type) {
-                    case TK_REG:
-                    case TK_INT:
+                    case TK_NOTYPE:
+                        break;
+                    default:
                         strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token].str[substr_len] = '\0';
                         tokens[nr_token].type = rules[i].token_type;
                         nr_token++;
                         break;
-                    case TK_NOTYPE:
-                        break;
-                    default:
-                        tokens[nr_token].type = rules[i].token_type;
-                        nr_token++;
                 }
                 break;
             }
