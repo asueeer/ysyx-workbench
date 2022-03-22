@@ -22,7 +22,7 @@ void init_wp_pool() {
 
 WP *new_wp() {
     for (int i = 0; i < NR_WP; ++i) {
-        printf("wp[%d]: no is %d, next wp no is %d\n", i, wp_pool[i].NO, wp_pool[i].next->NO);
+        printf("wp[%d]: no is %d, next wp no is %d\n", i, wp_pool[i].NO, wp_pool[i].next ? wp_pool[i].next->NO: -1);
     }
     return NULL;
 }
