@@ -31,18 +31,18 @@ static struct rule {
         /* TODO: Add more rules.
          * Pay attention to the precedence level of different rules.
          */
-        {" +",            TK_NOTYPE},   // spaces
-        {"\\+",           '+'},         // plus
-        {"\\-",           '-'},         // minus
-        {"\\*",           '*'},         // multiply
-        {"\\/",           '/'},         // divide
-        {"\\(",           '('},
-        {"\\)",           ')'},
-        {"\\$\\w+",       TK_REG},      // reg
+        {" +",                     TK_NOTYPE},   // spaces
+        {"\\+",                    '+'},         // plus
+        {"\\-",                    '-'},         // minus
+        {"\\*",                    '*'},         // multiply
+        {"\\/",                    '/'},         // divide
+        {"\\(",                    '('},
+        {"\\)",                    ')'},
+        {"\\$[a-z0-9]+",                TK_REG},      // reg
         {"(0[xX]){1}[0-9a-fA-F]+", TK_INT_HEX},  // Hex Integer
-        {"[0-9]+", TK_INT},      // Decimal Integer
-        {"==",            TK_EQ},      // equal
-        {"&&",            TK_AND},
+        {"[0-9]+",                 TK_INT},      // Decimal Integer
+        {"==",                     TK_EQ},      // equal
+        {"&&",                     TK_AND},
 };
 
 #define NR_REGEX ARRLEN(rules)
