@@ -252,7 +252,7 @@ bool valid_parentheses(int p, int q) {
 }
 
 word_t eval(int p, int q, bool *success) {
-    printf("p is %d, q is %d\n", p, q);
+    printf("p is %d, q is %d, success:%d\n", p, q, *success);
     if (!*success) {
         return 0;
     }
