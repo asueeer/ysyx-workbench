@@ -262,6 +262,8 @@ word_t eval(int p, int q, bool *success) {
             return atoi(tokens[p].str);
         } else if (tokens[p].type == TK_INT_HEX) {
             return strtol(tokens[p].str, NULL, 16);
+        } else if (tokens[p].type == TK_REG) {
+            return isa_reg_str2val(tokens[p].str, success);
         } else {
             *success = false;
             return 0;
