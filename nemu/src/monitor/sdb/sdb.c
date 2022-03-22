@@ -117,6 +117,12 @@ static int cmd_test_expr(char *args) {
     return 0;
 }
 
+static int cmt_test_wp(char *args) {
+    new_wp();
+    return 0;
+}
+
+
 static int cmd_help(char *args);
 
 static struct {
@@ -135,6 +141,7 @@ static struct {
         {"x",      "examine memory at address expr",                     cmd_x},
         {"p",      "examine an expression's value",                      cmd_p},
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
+        {"t_wp",   "test the watchpoint functions",                      cmt_test_wp},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
