@@ -43,14 +43,11 @@ void display_reg_val(const char *reg_name, word_t reg_val) {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-    printf("hi\n");
-    printf("%s\n", s);
     *success = true;
     if (strcmp(s, "pc") == 0) {
         return cpu.pc;
     }
     for (int i = 0; i < 32; ++i) {
-        printf("_%d %s\n", i,regs[i]);
         if (strcmp(s, regs[i]) == 0) {
             return gpr(i);
         }
