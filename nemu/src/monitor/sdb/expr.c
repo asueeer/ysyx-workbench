@@ -272,6 +272,7 @@ word_t eval(int p, int q, bool *success) {
             return strtol(tokens[p].str, NULL, 16);
         } else if (tokens[p].type == TK_REG) {
             word_t reg_val = isa_reg_str2val(tokens[p].str, success);
+            printf("find reg success: %d\n", *success);
             return reg_val;
         } else {
             *success = false;
