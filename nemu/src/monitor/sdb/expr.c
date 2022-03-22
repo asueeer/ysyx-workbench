@@ -40,7 +40,7 @@ static struct rule {
         {"\\)",      ')'},
         {"\\$\\w+",  TK_REG},      // reg
         {"[0-9]+",   TK_INT},
-        {"0x[0-9]+", TK_INT_HEX},      // Integer
+        {"(0x)[0-9]+", TK_INT_HEX},      // Integer
         {"==",       TK_EQ},       // equal
         {"&&",       TK_AND},
 };
