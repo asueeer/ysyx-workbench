@@ -12,7 +12,6 @@ enum {
     TK_NOTYPE = 256,
     TK_EQ,
     TK_INT,
-    TK_INT_HEX,
     TK_REG,
     TK_DEREF,
     TK_NEGATIVE,
@@ -30,17 +29,17 @@ static struct rule {
         /* TODO: Add more rules.
          * Pay attention to the precedence level of different rules.
          */
-
-        {" +",      TK_NOTYPE},   // spaces
-        {"\\+",     '+'},         // plus
-        {"\\-",     '-'},         // minus
-        {"\\*",     '*'},         // multiply
-        {"\\/",     '/'},         // divide
-        {"\\(",     '('},
-        {"\\)",     ')'},
-        {"\\$\\w+", TK_REG}, // reg
-        {"[0-9]+",  TK_INT},      // Integer
-        {"==",      TK_EQ},       // equal
+        {" +",          TK_NOTYPE},   // spaces
+        {"\\+",         '+'},         // plus
+        {"\\-",         '-'},         // minus
+        {"\\*",         '*'},         // multiply
+        {"\\/",         '/'},         // divide
+        {"\\(",         '('},
+        {"\\)",         ')'},
+        {"\\$\\w+",     TK_REG}, // reg
+        {"(0x)?[0-9]+", TK_INT},      // Integer
+        {"==",          TK_EQ},       // equal
+        {"&&",          TK_AND},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -263,9 +262,6 @@ word_t eval(int p, int q, bool *success) {
 
 void token_info() {
     for (int i = 0; i < nr_token; ++i) {
-        if (tokens[i].type == TK_REG) {
-            printf("match a reg\n");
-        }
         Log("tokens[%d]: str is %s, type is %d\n", i, tokens[i].str, tokens[i].type);
     }
 }
