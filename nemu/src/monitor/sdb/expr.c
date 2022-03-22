@@ -252,7 +252,6 @@ bool valid_parentheses(int p, int q) {
 }
 
 word_t eval(int p, int q, bool *success) {
-    printf("p is %d, q is %d, success:%d\n", p, q, *success);
     if (!*success) {
         return 0;
     }
@@ -266,14 +265,11 @@ word_t eval(int p, int q, bool *success) {
     if (p == q) {
         // token should be a number, or it is a bad expression
         if (tokens[p].type == TK_INT) {
-            printf("success: %d\n", *success);
             return atoi(tokens[p].str);
         } else if (tokens[p].type == TK_INT_HEX) {
             return strtol(tokens[p].str, NULL, 16);
         } else if (tokens[p].type == TK_REG) {
-            printf("reg name is %s\n", tokens[p].str);
             word_t reg_val = isa_reg_str2val(tokens[p].str, success);
-            printf("find reg success: %d\n", *success);
             return reg_val;
         } else {
             *success = false;
@@ -296,8 +292,6 @@ word_t eval(int p, int q, bool *success) {
     }
     long val1 = eval(p, op - 1, success);
     long val2 = eval(op + 1, q, success);
-    printf("op is %d, val1 is %ld, val2 is %ld\n", op, val1, val2);
-    printf("success: %d\n", *success);
     switch (tokens[op].type) {
         case '+':
             return (word_t) val1 + val2;
