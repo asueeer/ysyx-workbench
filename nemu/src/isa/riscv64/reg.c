@@ -50,7 +50,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
         return cpu.pc;
     }
     for (int i = 0; i < 32; ++i) {
-        printf("%s\n", regs[i]);
+        printf("_%d %s\n", i,regs[i]);
         if (strcmp(s, regs[i]) == 0) {
             return gpr(i);
         }
