@@ -8,9 +8,12 @@
 #include <stdlib.h>
 
 #define NTOKENS 32
+#define N_OP 7
+
 enum {
     TK_NOTYPE = 256,
     TK_EQ,
+    TK_NEQ,
     TK_INT,
     TK_INT_HEX,
     TK_REG,
@@ -20,6 +23,17 @@ enum {
 
     /* TODO: Add more token types */
 };
+
+static int operator[] = {
+        '+',
+        '-',
+        '*',
+        '/',
+        TK_AND,
+        TK_EQ,
+        TK_NEQ,
+};
+
 
 void token_info();
 
@@ -38,11 +52,12 @@ static struct rule {
         {"\\/",                    '/'},         // divide
         {"\\(",                    '('},
         {"\\)",                    ')'},
-        {"\\$[a-z0-9]+",                TK_REG},      // reg
+        {"\\$[a-z0-9]+",           TK_REG},      // reg
         {"(0[xX]){1}[0-9a-fA-F]+", TK_INT_HEX},  // Hex Integer
         {"[0-9]+",                 TK_INT},      // Decimal Integer
         {"==",                     TK_EQ},      // equal
         {"&&",                     TK_AND},
+        {"!=",                     TK_NEQ},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -73,6 +88,7 @@ typedef struct token {
 
 static Token tokens[NTOKENS] __attribute__((used)) = {};
 static int nr_token __attribute__((used)) = 0;
+
 
 static bool make_token(char *e) {
     int position = 0;
@@ -156,10 +172,12 @@ bool leq(int op1, int op2) {
 }
 
 bool is_cacl_op(int op) {
-    int type = tokens[op].type;
-    bool flag1 = type == '*' || type == '/';
-    bool flag2 = type == '-' || type == '+';
-    return flag1 || flag2;
+    for (int i = 0; i < N_OP; i++) {
+        if (tokens[i].type == operator[i]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
@@ -274,6 +292,14 @@ word_t expr(char *e, bool *success) {
     if (!make_token(e)) {
         *success = false;
         return 0;
+    }
+    for (int i = 0; i < nr_token; ++i) {
+        if (tokens[i].type == '*' && (i == 0 || is_cacl_op(tokens[i - 1].type))) {
+            tokens[i].type = TK_DEREF;
+        }
+        if (tokens[i].type == '-' && (i == 0 || is_cacl_op(tokens[i - 1].type))) {
+            tokens[i].type = TK_NEGATIVE;
+        }
     }
     token_info();
 
