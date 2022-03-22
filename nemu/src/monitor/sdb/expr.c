@@ -314,10 +314,10 @@ word_t expr(char *e, bool *success) {
         return 0;
     }
     for (int i = 0; i < nr_token; ++i) {
-        if (tokens[i].type == '*' && (i == 0 || is_cacl_op(tokens[i - 1].type))) {
+        if (tokens[i].type == '*' && (i == 0 || is_cacl_op(i - 1) || is_single_op(i - 1))) {
             tokens[i].type = TK_DEREF;
         }
-        if (tokens[i].type == '-' && (i == 0 || is_cacl_op(tokens[i - 1].type))) {
+        if (tokens[i].type == '-' && (i == 0 || is_cacl_op(i - 1) || is_single_op(i - 1))) {
             tokens[i].type = TK_NEGATIVE;
         }
     }
