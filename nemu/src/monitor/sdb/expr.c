@@ -269,7 +269,7 @@ word_t eval(int p, int q, bool *success) {
         } else if (tokens[p].type == TK_INT_HEX) {
             return strtol(tokens[p].str, NULL, 16);
         } else if (tokens[p].type == TK_REG) {
-            printf("ra\n");
+            printf("it is a reg!!!!\n");
             word_t reg_val = isa_reg_str2val(tokens[p].str, success);
             if (*success) {
                 printf("fail\n");
