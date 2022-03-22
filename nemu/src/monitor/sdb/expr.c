@@ -267,15 +267,11 @@ word_t eval(int p, int q, bool *success) {
             return 0;
         }
     }
-    if (p + 1 == q) {
-        if (is_single_op(p)) {
-            if (tokens[p].type == TK_NEGATIVE) {
-                return -eval(p + 1, q, success);
-            }
-        } else {
-            *success = false;
-            return 0;
+    if (is_single_op(p)) {
+        if (tokens[p].type == TK_NEGATIVE) {
+            return -eval(p + 1, q, success);
         }
+        // todo
     }
     if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1, success);
