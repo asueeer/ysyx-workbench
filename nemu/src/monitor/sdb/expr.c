@@ -187,7 +187,7 @@ bool is_cacl_op(int op) {
 
 bool is_single_op(int op) {
     for (int i = 0; i < N_SINGLE_OP; ++i) {
-        if (tokens[i].type == single_op[i]) {
+        if (tokens[op].type == single_op[i]) {
             return true;
         }
     }
