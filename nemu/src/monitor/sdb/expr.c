@@ -271,8 +271,8 @@ word_t eval(int p, int q, bool *success) {
         } else if (tokens[p].type == TK_REG) {
             printf("ra\n");
             word_t reg_val = isa_reg_str2val(tokens[p].str, success);
-            if (*success){
-                printf("fail");
+            if (*success) {
+                printf("fail\n");
             }
             return reg_val;
         } else {
