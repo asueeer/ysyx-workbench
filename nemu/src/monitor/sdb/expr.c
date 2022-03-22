@@ -252,6 +252,7 @@ bool valid_parentheses(int p, int q) {
 }
 
 word_t eval(int p, int q, bool *success) {
+    printf("p is %d, q is %d\n", p, q);
     if (!*success) {
         return 0;
     }
@@ -265,6 +266,7 @@ word_t eval(int p, int q, bool *success) {
     if (p == q) {
         // token should be a number, or it is a bad expression
         if (tokens[p].type == TK_INT) {
+            printf("success: %d\n", *success);
             return atoi(tokens[p].str);
         } else if (tokens[p].type == TK_INT_HEX) {
             return strtol(tokens[p].str, NULL, 16);
