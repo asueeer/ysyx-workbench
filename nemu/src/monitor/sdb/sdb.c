@@ -121,16 +121,16 @@ static struct {
 
     int (*handler)(char *);
 } cmd_table[] = {
-        {"help",   "Display informations about all supported commands",     cmd_help},
-        {"c",      "Continue the execution of the program",                 cmd_c},
-        {"q",      "Exit NEMU",                                             cmd_q},
+        {"help",   "Display informations about all supported commands",  cmd_help},
+        {"c",      "Continue the execution of the program",              cmd_c},
+        {"q",      "Exit NEMU",                                          cmd_q},
 
         /* TODO: Add more commands */
-        {"si",     "step by machine instructions rather than source lines", cmd_si},
-        {"i",      "display info about registers, watch points, etc.",      cmd_info},
-        {"x",      "examine memory at address expr",                        cmd_x},
-        {"p",      "examine an expression's value",                         cmd_p},
-        {"t_expr", "test the expr func is right",                           cmd_test_expr},
+        {"si",     "step by machine instructi rather than source lines", cmd_si},
+        {"i",      "display info about regist ers, watch points, etc.",  cmd_info},
+        {"x",      "examine memory at address expr",                     cmd_x},
+        {"p",      "examine an expression's value",                      cmd_p},
+        {"t_expr", "test the expr func is right",                        cmd_test_expr},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
