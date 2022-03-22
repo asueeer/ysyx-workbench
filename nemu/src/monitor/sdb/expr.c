@@ -173,7 +173,7 @@ bool leq(int op1, int op2) {
 
 bool is_cacl_op(int op) {
     for (int i = 0; i < N_OP; i++) {
-        if (tokens[i].type == operator[i]) {
+        if (tokens[op].type == operator[i]) {
             return true;
         }
     }
