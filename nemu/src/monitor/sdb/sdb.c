@@ -118,7 +118,7 @@ static int cmd_test_expr(char *args) {
 }
 
 static int cmt_test_wp(char *args) {
-    new_wp();
+    info_wp();
     return 0;
 }
 
