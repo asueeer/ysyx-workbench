@@ -91,6 +91,30 @@ static int cmd_p(char *args) {
     return 0;
 }
 
+
+static int cmd_w(char *args) {
+    WP *wp = new_wp();
+    strcpy(wp->expr, args);
+    return 0;
+}
+
+
+static int cmd_d(char *args) {
+    int n = 1;
+    if (args != 0) {
+        n = atoi(args);
+        if (n == 0) {
+            printf("args \"%s\" might not a valid number?\n", args);
+            return 0;
+        }
+    }
+    if (delete_wp(n) < 0){
+        printf("delete wp %s failed.\n", args);
+        return 0;
+    }
+    return 0;
+}
+
 static int cmd_test_expr(char *args) {
     FILE *fp = fopen("/tmp/input", "r");
     int nbuf = 65536;
@@ -122,12 +146,6 @@ static int cmt_test_wp(char *args) {
     return 0;
 }
 
-static int cmd_w(char *args) {
-    WP *wp = new_wp();
-    strcpy(wp->expr, args);
-    return 0;
-}
-
 
 static int cmd_help(char *args);
 
@@ -147,6 +165,7 @@ static struct {
         {"x",      "examine memory at address expr",                     cmd_x},
         {"p",      "examine an expression's value",                      cmd_p},
         {"w",      "set a watchpoint for an expression",                 cmd_w},
+        {"d",      "delete a watchpoint for n",                          cmd_d},
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
         {"t_wp",   "test the watchpoint functions",                      cmt_test_wp},
 };

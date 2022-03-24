@@ -13,3 +13,5 @@ WP *check_and_update_wps();
 WP *new_wp();
 
 void info_wp();
+
+int delete_wp(int n);
