@@ -3,7 +3,7 @@ typedef struct watchpoint {
     struct watchpoint *next;
 
     /* TODO: Add more members if necessary */
-    char *e;
+    char expr[128];
     word_t old_val;
 } WP;
 

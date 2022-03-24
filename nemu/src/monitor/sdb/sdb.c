@@ -124,7 +124,7 @@ static int cmt_test_wp(char *args) {
 
 static int cmd_w(char *args) {
     WP *wp = new_wp();
-    wp->e = args;
+    strcpy(wp->expr, args);
     return 0;
 }
 

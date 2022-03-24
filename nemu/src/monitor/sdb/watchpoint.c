@@ -52,8 +52,7 @@ WP *check_and_update_wps() {
     WP *cur = head;
     bool success;
     while (cur != NULL) {
-        printf("expr is %s\n", cur->e);
-        word_t new_val = expr(cur->e, &success);
+        word_t new_val = expr(cur->expr, &success);
         if (cur->old_val != new_val) {
             return cur;
         }
