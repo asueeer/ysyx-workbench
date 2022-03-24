@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "sdb.h"
 #include <stdlib.h>
+
 #define NR_WP 32
 
 
@@ -34,7 +35,32 @@ WP *new_wp() {
     }
     WP *ret = free_;
     free_ = free_->next;
+    ret->next = NULL;
+    if (head == NULL) {
+        head = ret;
+        return ret;
+    }
+    WP *cur = head; // find list tail
+    while (cur->next != NULL) {
+        cur = cur->next;
+    }
+    // now cur is tail
+    cur->next = ret;
     return ret;
+}
+
+WP *check_and_update_wps() {
+    WP *cur = head;
+    bool success;
+    while (cur != NULL) {
+        word_t new_val = expr(cur->e, &success);
+        if (cur->old_val != new_val) {
+            return cur;
+        }
+        cur->old_val = new_val;
+        cur = cur->next;
+    }
+    return NULL;
 }
 
 void free_wp(WP *wp) {
