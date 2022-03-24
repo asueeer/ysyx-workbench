@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "sdb.h"
-
+#include <stdlib.h>
 #define NR_WP 32
 
 
@@ -8,6 +8,7 @@ static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool() {
+
     int i;
     for (i = 0; i < NR_WP; i++) {
         wp_pool[i].NO = i;
@@ -27,6 +28,16 @@ void info_wp() {
 }
 
 WP *new_wp() {
+    if (free_ == NULL) {
+        printf("no free watch point\n");
+        assert(0);
+    }
+    WP *ret = free_;
+    free_ = free_->next;
+    return ret;
+}
 
-    return NULL;
+void free_wp(WP *wp) {
+    wp->next = free_;
+    free_ = wp;
 }
