@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "sdb.h"
 #include <stdlib.h>
+
 #define NR_WP 32
 
 
@@ -52,11 +53,11 @@ WP *check_and_update_wps() {
     WP *cur = head;
     bool success;
     while (cur != NULL) {
-        word_t new_val = expr(cur->expr, &success);
-        if (cur->old_val != new_val) {
+        cur->old_val = cur->new_val;
+        cur->new_val = expr(cur->expr, &success);
+        if (cur->old_val != cur->new_val) {
             return cur;
         }
-        cur->old_val = new_val;
         cur = cur->next;
     }
     return NULL;
