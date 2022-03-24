@@ -3,6 +3,7 @@
 #include <cpu/difftest.h>
 #include <locale.h>
 #include <stdio.h>
+#include <watch-point.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -52,6 +53,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
     disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
         MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
 #endif
+
+    WP *wp = check_and_update_wps();
+    printf("wp_no is %d\n", wp ? wp->NO : -1);
 }
 
 static void execute(uint64_t n) {

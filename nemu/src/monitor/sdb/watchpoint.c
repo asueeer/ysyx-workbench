@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "sdb.h"
 #include <stdlib.h>
-
 #define NR_WP 32
 
 
