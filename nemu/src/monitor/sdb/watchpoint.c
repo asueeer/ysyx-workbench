@@ -70,10 +70,6 @@ void free_wp(WP *wp) {
 
 int delete_wp(int n) {
     WP *cur = head;
-    while (cur != NULL) {
-        cur = cur->next;
-    }
-
     for (int i = 0; i < n - 1; ++i) {
         if (cur == NULL) {
             return -1;
