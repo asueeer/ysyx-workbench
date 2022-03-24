@@ -57,10 +57,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
     WP *wp = check_and_update_wps();
     if (wp) {
         nemu_state.state = NEMU_STOP;
-        printf("wp activate! expr is %s, old val is %lx %ld, new val is %lx %ld\n",
+        printf("wp activate! expr is %s, old val is %lx, new val is %lx\n",
                wp->expr,
-               wp->old_val, wp->old_val,
-               wp->new_val, wp->new_val);
+               wp->old_val,
+               wp->new_val);
     }
 }
 
