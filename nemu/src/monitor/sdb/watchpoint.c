@@ -8,7 +8,6 @@ static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool() {
-
     int i;
     for (i = 0; i < NR_WP; i++) {
         wp_pool[i].NO = i;
@@ -31,6 +30,7 @@ WP *new_wp() {
     if (free_ == NULL) {
         printf("no free watch point\n");
         assert(0);
+        return NULL;
     }
     WP *ret = free_;
     free_ = free_->next;
