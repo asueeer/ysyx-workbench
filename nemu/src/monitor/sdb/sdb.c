@@ -140,6 +140,8 @@ static struct {
         {"i",      "display info about regist ers, watch points, etc.",  cmd_info},
         {"x",      "examine memory at address expr",                     cmd_x},
         {"p",      "examine an expression's value",                      cmd_p},
+        {"w", "set a watchpoint for "},
+
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
         {"t_wp",   "test the watchpoint functions",                      cmt_test_wp},
 };

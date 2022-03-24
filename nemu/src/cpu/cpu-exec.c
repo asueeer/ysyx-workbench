@@ -3,7 +3,7 @@
 #include <cpu/difftest.h>
 #include <locale.h>
 #include <stdio.h>
-#include <watch-point.h>
+#include <watchpoint.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -55,6 +55,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 
     WP *wp = check_and_update_wps();
+    if (wp) {
+        assert(0);
+    }
     printf("wp_no is %d\n", wp ? wp->NO : -1);
 }
 
