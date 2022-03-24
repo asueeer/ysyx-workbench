@@ -49,6 +49,7 @@ WP *new_wp() {
 }
 
 WP *check_and_update_wps() {
+    printf("hi");
     WP *cur = head;
     bool success;
     while (cur != NULL) {
