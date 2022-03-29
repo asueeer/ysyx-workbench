@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "sdb.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define NR_WP 32
 
@@ -64,6 +65,21 @@ WP *check_and_update_wps() {
 }
 
 void free_wp(WP *wp) {
+    if (wp->NO == head->NO) {
+        head = wp->next;
+    } else {
+        // find cur.prev
+        WP *prev = head;
+        while (prev->next != NULL && prev->next->NO != wp->NO) {
+            prev = prev->next;
+        }
+        if (prev == NULL) {
+            printf("cannot find wp.prev!\n");
+            assert(0);
+        }
+        prev->next = wp->next;
+    }
+
     wp->next = free_;
     free_ = wp;
 }
