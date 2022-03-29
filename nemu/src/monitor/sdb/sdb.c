@@ -57,9 +57,12 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
     char *ptr = strtok(args, delim);
-    if (strcmp(ptr, "i")) {
+    if (strcmp(ptr, "r")) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
+    }
+    if (strcmp(ptr, "w")){
+        info_watchpoints();
     }
     return 0;
 }
@@ -115,11 +118,6 @@ static int cmd_d(char *args) {
     return 0;
 }
 
-static int cmd_info_watchpoints(char *args) {
-    info_watchpoints();
-    return 0;
-}
-
 static int cmd_test_expr(char *args) {
     FILE *fp = fopen("/tmp/input", "r");
     int nbuf = 65536;
@@ -170,7 +168,6 @@ static struct {
         {"x",      "examine memory at address expr",                     cmd_x},
         {"p",      "examine an expression's value",                      cmd_p},
         {"w",      "set a watchpoint for an expression",                 cmd_w},
-        {"info watch", "show defined watchpoints", cmd_info_watchpoints},
         {"d",      "delete a watchpoint for n",                          cmd_d},
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
         {"t_wp",   "test the watchpoint functions",                      cmt_test_wp},
