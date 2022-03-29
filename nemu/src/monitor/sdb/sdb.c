@@ -57,8 +57,9 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
     char *ptr = strtok(args, delim);
-    printf("ptr: %s\n", ptr);
+
     if (strcmp(ptr, "r")==0) {
+        printf("ptr: %s\n", ptr);
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
     }
