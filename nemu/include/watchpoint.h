@@ -14,4 +14,6 @@ WP *new_wp();
 
 void info_wp();
 
+void info_watchpoints();
+
 int delete_wp(int n);

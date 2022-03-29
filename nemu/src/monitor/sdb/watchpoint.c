@@ -95,3 +95,13 @@ int delete_wp(int n) {
     free_wp(cur);
     return 0;
 }
+
+void info_watchpoints() {
+    WP *cur = head;
+    printf("Num\t\tWhat\n");
+    int num = 1;
+    while (cur != NULL) {
+        printf("%d\t\t%s\n", num, cur->expr);
+        num++;
+    }
+}
