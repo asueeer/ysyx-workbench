@@ -12,7 +12,7 @@ WP *check_and_update_wps();
 
 WP *new_wp();
 
-void info_wp();
+void info_wp_pool();
 
 void info_watchpoints();
 
