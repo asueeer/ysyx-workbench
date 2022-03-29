@@ -103,5 +103,6 @@ void info_watchpoints() {
     while (cur != NULL) {
         printf("%d\t\t%s\n", num, cur->expr);
         num++;
+        cur = cur->next;
     }
 }
