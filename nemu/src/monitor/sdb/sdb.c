@@ -60,9 +60,11 @@ static int cmd_info(char *args) {
     if (strcmp(ptr, "r") == 0) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
+        return 0;
     }
     if (strcmp(ptr, "w") == 0) {
         info_watchpoints();
+        return 0;
     }
     return 0;
 }
