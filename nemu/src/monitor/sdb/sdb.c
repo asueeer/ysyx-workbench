@@ -61,6 +61,7 @@ static int cmd_info(char *args) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
     }
+    printf("print w\n");
     if (strcmp(ptr, "w")){
         info_watchpoints();
     }
