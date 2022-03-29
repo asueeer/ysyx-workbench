@@ -57,14 +57,11 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
     char *ptr = strtok(args, delim);
-
-    if (strcmp(ptr, "r")==0) {
-        printf("ptr: %s\n", ptr);
+    if (strcmp(ptr, "r") == 0) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
     }
-    printf("print w\n");
-    if (strcmp(ptr, "w")){
+    if (strcmp(ptr, "w") == 0) {
         info_watchpoints();
     }
     return 0;
