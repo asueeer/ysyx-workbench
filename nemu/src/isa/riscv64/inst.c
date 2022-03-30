@@ -49,6 +49,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             break;
         case TYPE_J:
             src1I(immU(i));
+            printf("imm: 0x%lx\n", *src1);
             break;
     }
 }
