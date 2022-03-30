@@ -10,6 +10,7 @@
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_N, // none
+  TYPE_J,
 };
 
 #define src1R(n) do { *src1 = R(n); } while (0)
@@ -23,12 +24,15 @@ static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
 
+
+
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
     uint32_t i = s->isa.inst.val;
     int rd = BITS(i, 11, 7);
     int rs1 = BITS(i, 19, 15);
     int rs2 = BITS(i, 24, 20);
     destR(rd);
+    printf("type:%d\n", type);
     switch (type) {
         case TYPE_I:
             src1R(rs1);
@@ -41,6 +45,9 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             destI(immS(i));
             src1R(rs1);
             src2R(rs2);
+            break;
+        case TYPE_J:
+            printf("J type ins\n");
             break;
     }
 }
@@ -65,7 +72,7 @@ static int decode_exec(Decode *s) {
 
     // todo add inst exec
     INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi, I, R(dest) = src1 + src2);
-
+    INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, INV(s->pc));
     INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv, N, INV(s->pc));
     INSTPAT_END();
 
