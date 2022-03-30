@@ -23,7 +23,7 @@ enum {
 static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
-static word_t offsetU(uint32_t i) { return SEXT(BITS(i, 31, 20) << 1, 11); }
+static word_t offsetU(uint32_t i) { return SEXT(BITS(i, 31, 12) << 1, 19); }
 
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
