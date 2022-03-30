@@ -33,7 +33,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     int rs2 = BITS(i, 24, 20);
     destR(rd);
     printf("type:%d\n", type);
-    printf("i: %x\n", i);
+    printf("i: 0x%x\n", i);
     switch (type) {
         case TYPE_I:
             src1R(rs1);
