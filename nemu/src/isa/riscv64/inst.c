@@ -33,6 +33,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     int rs2 = BITS(i, 24, 20);
     destR(rd);
     printf("type:%d\n", type);
+    printf("i: %x\n", i);
     switch (type) {
         case TYPE_I:
             src1R(rs1);
@@ -47,9 +48,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             src2R(rs2);
             break;
         case TYPE_J:
-
-            printf("J type ins\n");
-
+            src1I(immU(i));
             break;
     }
 }
