@@ -33,7 +33,7 @@ static char *rl_gets() {
 }
 
 static int cmd_c(char *args) {
-    cpu_exec(-1);
+    cpu_exec(-1); // -1 is max_unsigned_integer!
     return 0;
 }
 
@@ -60,7 +60,7 @@ static int cmd_info(char *args) {
     if (strcmp(ptr, "r") == 0) {
         ptr = strtok(NULL, delim);
         isa_reg_display(ptr);
-        //return 0;
+        return 0;
     }
     if (strcmp(ptr, "w") == 0) {
         info_watchpoints();
