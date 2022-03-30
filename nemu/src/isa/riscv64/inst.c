@@ -44,6 +44,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             break;
     }
     printf("dest: %ld\n", *dest);
+    printf("src1: %ld\n", *src1);
 }
 
 static int decode_exec(Decode *s) {
