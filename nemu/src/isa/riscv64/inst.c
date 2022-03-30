@@ -24,21 +24,32 @@ static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
-  uint32_t i = s->isa.inst.val;
-  int rd  = BITS(i, 11, 7);
-  int rs1 = BITS(i, 19, 15);
-  int rs2 = BITS(i, 24, 20);
-  destR(rd);
-  switch (type) {
-    case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
-    case TYPE_U: src1I(immU(i)); break;
-    case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;
-  }
+    uint32_t i = s->isa.inst.val;
+    int rd = BITS(i, 11, 7);
+    int rs1 = BITS(i, 19, 15);
+    int rs2 = BITS(i, 24, 20);
+    destR(rd);
+    switch (type) {
+        case TYPE_I:
+            src1R(rs1);
+            src2I(immI(i));
+            break;
+        case TYPE_U:
+            src1I(immU(i));
+            break;
+        case TYPE_S:
+            destI(immS(i));
+            src1R(rs1);
+            src2R(rs2);
+            break;
+    }
+
+    //printf("immI is %lx\n", *src2);
 }
 
 static int decode_exec(Decode *s) {
-  word_t dest = 0, src1 = 0, src2 = 0;
-  s->dnpc = s->snpc;
+    word_t dest = 0, src1 = 0, src2 = 0;
+    s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* body */ ) { \
@@ -46,20 +57,22 @@ static int decode_exec(Decode *s) {
   __VA_ARGS__ ; \
 }
 
-  INSTPAT_START();
-  INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(dest) = src1 + s->pc);
-  INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
-  INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd     , S, Mw(src1 + dest, 8, src2));
+    INSTPAT_START();
+    INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc, U, R(dest) = src1 + s->pc);
+    INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld, I, R(dest) = Mr(src1 + src2, 8));
+    INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd, S, Mw(src1 + dest, 8, src2));
 
-  INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
-  // todo add inst exec
+    INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak, N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
 
-  INSTPAT_END();
+    // todo add inst exec
+    INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi, I, R(dest) = R(src1) + src2);
 
-  R(0) = 0; // reset $zero to 0
+    INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv, N, INV(s->pc));
+    INSTPAT_END();
 
-  return 0;
+    R(0) = 0; // reset $zero to 0
+
+    return 0;
 }
 
 int isa_exec_once(Decode *s) {
