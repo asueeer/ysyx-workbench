@@ -51,7 +51,6 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             src2R(rs2);
             break;
         case TYPE_J:
-            printf("imm is %llx\n", BITS(i, 31, 12));
             src1I(offsetU(i));
             printf("offset: 0x%lx\n", *src1);
             break;
