@@ -341,6 +341,8 @@ word_t eval(int p, int q, bool *success) {
                 return 0;
             }
             return (word_t) val1 / val2;
+        case TK_EQ:
+            return (word_t) val1 == val2;
         default:
             *success = false;
             return 0;
