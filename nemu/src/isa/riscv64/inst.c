@@ -39,7 +39,6 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
         case TYPE_I:
             src1R(rs1); // let src1 = x[rs1]
             src2I(immI(i)); // let src2 = sext(imm)
-            printf("imm is %lx\n", *src2);
             break;
         case TYPE_U:
             src1I(immU(i));
