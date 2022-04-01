@@ -40,10 +40,6 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     int rs1 = BITS(i, 19, 15);
     int rs2 = BITS(i, 24, 20);
     destR(rd); // let dest = rd.no
-    if (((sword_t) - 4096) >> BITS(3, 5, 0)==-512){
-        printf("%lx\n", ((sword_t) - 4096) >> BITS(3, 5, 0));
-        printf("yes!\n");
-    }
     switch (type) {
         case TYPE_I:
             src1R(rs1); // let src1 = x[rs1]
