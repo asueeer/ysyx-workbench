@@ -19,7 +19,7 @@ size_t strlen(const char *s) {
 
 char *strcpy(char *dst, const char *src) {
     int i = 0;
-    while (src[i] != '0') {
+    while (src[i] != '\0') {
         dst[i] = src[i];
         i++;
     }
