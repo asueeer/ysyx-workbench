@@ -54,13 +54,13 @@ int strncmp(const char *s1, const char *s2, size_t n) {
             if (s1[i] == s2[i]) {
                 return 0;
             }
-            return s1[i] < s2[i];
+            return s1[i] > s2[i] ? 1: -1;
         }
         if (s1[i] == s2[i]) {
             i++;
             continue;
         }
-        return s1[i] < s2[i];
+        return s1[i] > s2[i] ? 1: -1;
     }
     return -1;
 }
