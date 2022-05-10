@@ -28,6 +28,7 @@ int sprintf(char *out, const char *fmt, ...) {
     while (fmt[i] != '\0') {
         if (fmt[i] != '%') {
             out[j] = fmt[i];
+            out[j + 1] = '\0';
             j++;
             i++;
             continue;
