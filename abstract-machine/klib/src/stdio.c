@@ -17,6 +17,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
+    out[0] = '\0';
     va_list ap;
     char *s;
     int d;
