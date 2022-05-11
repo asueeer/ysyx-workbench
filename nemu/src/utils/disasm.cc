@@ -5,7 +5,7 @@
 
 #include "llvm/MC/MCAsmInfo.h"
 #include "llvm/MC/MCContext.h"
-#include "llvm/MC/MCDisassembler/MCDisassembler.h"
+#include "llvm-11/llvm/MC/MCDisassembler/MCDisassembler.h"
 #include "llvm-11/llvm/MC/MCInstPrinter.h"
 #include "llvm-11/llvm/Support/TargetRegistry.h"
 #include "llvm-11/llvm/Support/TargetSelect.h"
