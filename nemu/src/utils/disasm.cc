@@ -8,7 +8,7 @@
 #include "llvm/MC/MCDisassembler/MCDisassembler.h"
 #include "llvm-11/llvm/MC/MCInstPrinter.h"
 #include "llvm-11/llvm/Support/TargetRegistry.h"
-#include "llvm/Support/TargetSelect.h"
+#include "llvm-11/llvm/Support/TargetSelect.h"
 #include <stdio.h>
 
 #if defined(__GNUC__) && !defined(__clang__)
