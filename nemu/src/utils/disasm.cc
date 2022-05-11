@@ -3,12 +3,12 @@
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
 
-#include "llvm-11/llvm/MC/MCAsmInfo.h"
+#include "llvm/MC/MCAsmInfo.h"
 #include "llvm/MC/MCContext.h"
-#include "llvm-11/llvm/MC/MCDisassembler/MCDisassembler.h"
-#include "llvm-11/llvm/MC/MCInstPrinter.h"
-#include "llvm-11/llvm/Support/TargetRegistry.h"
-#include "llvm-11/llvm/Support/TargetSelect.h"
+#include "llvm/MC/MCDisassembler/MCDisassembler.h"
+#include "llvm/MC/MCInstPrinter.h"
+#include "llvm/Support/TargetRegistry.h"
+#include "llvm/Support/TargetSelect.h"
 #include <stdio.h>
 
 #if defined(__GNUC__) && !defined(__clang__)
