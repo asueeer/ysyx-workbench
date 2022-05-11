@@ -4,6 +4,7 @@
 #include <locale.h>
 #include <stdio.h>
 #include <watchpoint.h>
+#include "string.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -48,11 +49,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
     space_len = space_len * 3 + 1;
     memset(p, ' ', space_len);
     p += space_len;
-
+    printf("p.len(): %ld\n", strlen(p));
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
         MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-    printf("s->logbug: %s\n", s->logbuf);
 #endif
 
     WP *wp = check_and_update_wps();
