@@ -3,7 +3,7 @@
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
 
-#include "llvm/MC/MCAsmInfo.h"
+#include "llvm-11/llvm/MC/MCAsmInfo.h"
 #include "llvm/MC/MCContext.h"
 #include "llvm-11/llvm/MC/MCDisassembler/MCDisassembler.h"
 #include "llvm-11/llvm/MC/MCInstPrinter.h"
