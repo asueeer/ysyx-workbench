@@ -19,6 +19,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+int update_ringbuf(Decode *s, char *str);
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -53,8 +54,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
         MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-    // todo
-    printf("logbuf: %s\n", s->logbuf);
+    // update ringbuf
+    if (update_ringbuf(s, s->logbuf) < 0){
+        assert(0);
+    }
 #endif
 
     WP *wp = check_and_update_wps();
@@ -133,4 +136,13 @@ void cpu_exec(uint64_t n) {
         case NEMU_QUIT:
             statistic();
     }
+}
+
+int update_ringbuf(Decode *s, char *str) {
+    s->ring_idx = (s->ring_idx + 1) % 32;
+    if (s->ringbuf[s->ring_idx] == NULL) {
+        assert(0);
+    }
+    strcpy(s->ringbuf[s->ring_idx], str);
+    return 0;
 }
