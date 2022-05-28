@@ -141,7 +141,7 @@ void cpu_exec(uint64_t n) {
 
 int update_ringbuf(Decode *s, char *str) {
     s->ring_idx = (s->ring_idx + 1) % 32;
-    printf("%p", s->ringbuf[s->ring_idx]);
+    printf("%p\n", s->ringbuf[s->ring_idx]);
     //s->ringbuf[s->ring_idx] = str;
     return 0;
 }
