@@ -141,9 +141,11 @@ void cpu_exec(uint64_t n) {
 
 int update_ringbuf(Decode *s, char *str) {
     s->ring_idx = (s->ring_idx + 1) % 32;
-    char *p = s->ringbuf[s->ring_idx];
-    if (p == NULL) {
+    char *p = 0;
+    if (s->ringbuf[s->ring_idx] == NULL) {
         memset(p, ' ', 128);
+    }else{
+        p = s->ringbuf[s->ring_idx];
     }
     printf("str: %s\n", str);
     strncpy(p, str, 128);
