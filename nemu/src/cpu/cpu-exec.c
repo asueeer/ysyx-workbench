@@ -19,6 +19,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+
 int update_ringbuf(Decode *s, char *str);
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -141,7 +142,9 @@ void cpu_exec(uint64_t n) {
 int update_ringbuf(Decode *s, char *str) {
     s->ring_idx = (s->ring_idx + 1) % 32;
     if (s->ringbuf[s->ring_idx] == NULL) {
-        memset(s->ringbuf[s->ring_idx], ' ', 128);
+        char *p = 0;
+        memset(p, ' ', 128);
+        s->ringbuf[s->ring_idx] = p;
     }
     //printf("str: %s", str);
     //strncpy(s->ringbuf[s->ring_idx], str, 128);
