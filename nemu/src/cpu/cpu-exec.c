@@ -158,7 +158,7 @@ int display_ringbuf() {
         if (i == ring_idx) {
             printf("--> %s\n", ringbuf[i]); // pointer here
         } else {
-            printf("\t%s\n", ringbuf[i]);
+            printf("    %s\n", ringbuf[i]);
         }
     }
     return 0;
