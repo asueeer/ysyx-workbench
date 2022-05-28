@@ -151,10 +151,11 @@ int update_ringbuf(Decode *s, char *str) {
 
 int display_ringbuf() {
     for (int i = 0; i < 128; ++i) {
+        printf("%d\n", ringbuf[i][0]);
         if (i == ring_idx) {
             printf("--> %s\n", ringbuf[i]);
         } else {
-            printf("%s\n", ringbuf[i]);
+            printf("\t%s\n", ringbuf[i]);
         }
     }
     return 0;
