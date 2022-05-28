@@ -146,7 +146,7 @@ int update_ringbuf(Decode *s, char *str) {
         memset(p, ' ', 128);
         s->ringbuf[s->ring_idx] = p;
     }
-    //printf("str: %s", str);
-    //strncpy(s->ringbuf[s->ring_idx], str, 128);
+    printf("str: %s", str);
+    strncpy(s->ringbuf[s->ring_idx], str, 128);
     return 0;
 }
