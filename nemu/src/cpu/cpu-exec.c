@@ -54,6 +54,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
     disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
         MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
     // todo
+    printf("logbuf: %s\n", s->logbuf);
 #endif
 
     WP *wp = check_and_update_wps();
