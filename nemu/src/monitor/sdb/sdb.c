@@ -113,7 +113,7 @@ static int cmd_d(char *args) {
             return 0;
         }
     }
-    if (delete_wp(n) < 0){
+    if (delete_wp(n) < 0) {
         printf("delete wp %s failed.\n", args);
         return 0;
     }
@@ -146,8 +146,13 @@ static int cmd_test_expr(char *args) {
     return 0;
 }
 
-static int cmt_test_wp(char *args) {
+static int cmd_test_wp(char *args) {
     info_wp_pool();
+    return 0;
+}
+
+static int cmd_ringbuf(char *args){
+    display_ringbuf();
     return 0;
 }
 
@@ -172,7 +177,8 @@ static struct {
         {"w",      "set a watchpoint for an expression",                 cmd_w},
         {"d",      "delete a watchpoint for n",                          cmd_d},
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
-        {"t_wp",   "test the watchpoint functions",                      cmt_test_wp},
+        {"t_wp",   "test the watchpoint functions",                      cmd_test_wp},
+        {"rb",     "display ringbuf",                                    cmd_ringbuf},
 };
 
 #define NR_CMD ARRLEN(cmd_table)

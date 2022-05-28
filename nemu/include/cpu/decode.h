@@ -10,8 +10,6 @@ typedef struct Decode {
   vaddr_t dnpc; // dynamic next pc
   ISADecodeInfo isa;
   IFDEF(CONFIG_ITRACE, char logbuf[128]);
-  IFDEF(CONFIG_ITRACE, char ringbuf[32][128]);
-  int ring_idx;
 } Decode;
 
 // --- pattern matching mechanism ---

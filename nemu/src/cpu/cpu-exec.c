@@ -17,6 +17,10 @@ CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
+#ifdef CONFIG_ITRACE
+char ringbuf[32][128];
+int ring_idx;
+#endif
 
 void device_update();
 
@@ -140,7 +144,18 @@ void cpu_exec(uint64_t n) {
 }
 
 int update_ringbuf(Decode *s, char *str) {
-    s->ring_idx = (s->ring_idx + 1) % 32;
-    strcpy(&s->ringbuf[s->ring_idx][0], str);
+    ring_idx = (ring_idx + 1) % 32;
+    strcpy(&ringbuf[ring_idx][0], str);
+    return 0;
+}
+
+int display_ringbuf() {
+    for (int i = 0; i < 128; ++i) {
+        if (i == ring_idx) {
+            printf("--> %s\n", ringbuf[i]);
+        } else {
+            printf("%s\n", ringbuf[i]);
+        }
+    }
     return 0;
 }
