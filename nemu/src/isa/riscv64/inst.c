@@ -8,11 +8,28 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_I, TYPE_U, TYPE_S,
-  TYPE_N, // none
-  TYPE_J,
-  TYPE_R,
-  TYPE_B,
+    TYPE_I, TYPE_U, TYPE_S,
+    TYPE_N, // none
+    TYPE_J,
+    TYPE_R,
+    TYPE_B,
+};
+
+enum {
+    auipc, ld, sd,
+    ebreak,
+    add, addi, addw, addiw, sub, subw,
+    lw, lbu, lh, lhu,
+    sraw, sraiw, srliw, srai, srli, srlw,
+    slli, sllw, slliw,
+    sltiu, slti, sltu, slt,
+    jal, jalr,
+    bne, beq, bge, bgeu, blt, bltu,
+    sh, sw_,
+    lui, andi, and,
+    xori, or, sb,
+    mul, mulw, divw, remw,
+    inv,
 };
 
 #define src1R(n) do { *src1 = R(n); } while (0)
@@ -23,7 +40,9 @@ enum {
 #define destI(i) do { *dest = i; } while (0)
 
 static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
+
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
+
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
 
 static word_t offsetU(uint32_t i) {
@@ -74,15 +93,177 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
             destI(offsetB(i));
             break;
     }
+    s->dest = *dest;
+    s->src1 = *src1;
+    s->src2 = *src2;
+}
+
+// 代码是自动生成的！
+static void decode_operand_name(Decode *s, int type_name) {
+    s->type_name = type_name;
+    switch (s->type_name) {
+        case auipc:
+            sprintf(&s->operand_name[0], "auipc");
+            sprintf(&s->cmd[0], "(pc加立即数) -> %s %s, 0x%lx", s->operand_name, regs[s->dest], s->src1);
+            break;
+        case ld:
+            sprintf(&s->operand_name[0], "ld");
+            sprintf(&s->cmd[0], "(双字加载) -> %s %s, 0x%lx(0x%lx)", s->operand_name, regs[s->dest], s->src2, s->src1);
+            break;
+        case sd:
+            sprintf(&s->operand_name[0], "sd");
+            sprintf(&s->cmd[0], "(存双字) -> %s %lx, 0x%lx(0x%lx)", s->operand_name, s->src2, s->dest, s->src1);
+            break;
+        case ebreak:
+            sprintf(&s->operand_name[0], "ebreak");
+            sprintf(&s->cmd[0], "(环境断点) -> %s", s->operand_name);
+            break;
+        case add:
+            sprintf(&s->operand_name[0], "add");
+            break;
+        case addi:
+            sprintf(&s->operand_name[0], "addi");
+            break;
+        case addw:
+            sprintf(&s->operand_name[0], "addw");
+            break;
+        case addiw:
+            sprintf(&s->operand_name[0], "addiw");
+            break;
+        case sub:
+            sprintf(&s->operand_name[0], "sub");
+            break;
+        case subw:
+            sprintf(&s->operand_name[0], "subw");
+            break;
+        case lw:
+            sprintf(&s->operand_name[0], "lw");
+            break;
+        case lbu:
+            sprintf(&s->operand_name[0], "lbu");
+            break;
+        case lh:
+            sprintf(&s->operand_name[0], "lh");
+            break;
+        case lhu:
+            sprintf(&s->operand_name[0], "lhu");
+            break;
+        case sraw:
+            sprintf(&s->operand_name[0], "sraw");
+            break;
+        case sraiw:
+            sprintf(&s->operand_name[0], "sraiw");
+            break;
+        case srliw:
+            sprintf(&s->operand_name[0], "srliw");
+            break;
+        case srai:
+            sprintf(&s->operand_name[0], "srai");
+            break;
+        case srli:
+            sprintf(&s->operand_name[0], "srli");
+            break;
+        case srlw:
+            sprintf(&s->operand_name[0], "srlw");
+            break;
+        case slli:
+            sprintf(&s->operand_name[0], "slli");
+            break;
+        case sllw:
+            sprintf(&s->operand_name[0], "sllw");
+            break;
+        case slliw:
+            sprintf(&s->operand_name[0], "slliw");
+            break;
+        case sltiu:
+            sprintf(&s->operand_name[0], "sltiu");
+            break;
+        case slti:
+            sprintf(&s->operand_name[0], "slti");
+            break;
+        case sltu:
+            sprintf(&s->operand_name[0], "sltu");
+            break;
+        case slt:
+            sprintf(&s->operand_name[0], "slt");
+            break;
+        case jal:
+            sprintf(&s->operand_name[0], "jal");
+            break;
+        case jalr:
+            sprintf(&s->operand_name[0], "jalr");
+            break;
+        case bne:
+            sprintf(&s->operand_name[0], "bne");
+            break;
+        case beq:
+            sprintf(&s->operand_name[0], "beq");
+            break;
+        case bge:
+            sprintf(&s->operand_name[0], "bge");
+            break;
+        case bgeu:
+            sprintf(&s->operand_name[0], "bgeu");
+            break;
+        case blt:
+            sprintf(&s->operand_name[0], "blt");
+            break;
+        case bltu:
+            sprintf(&s->operand_name[0], "bltu");
+            break;
+        case sh:
+            sprintf(&s->operand_name[0], "sh");
+            break;
+        case sw_:
+            sprintf(&s->operand_name[0], "sw_");
+            break;
+        case lui:
+            sprintf(&s->operand_name[0], "lui");
+            break;
+        case andi:
+            sprintf(&s->operand_name[0], "andi");
+            break;
+        case and:
+            sprintf(&s->operand_name[0], "and");
+            break;
+        case xori:
+            sprintf(&s->operand_name[0], "xori");
+            break;
+        case or:
+            sprintf(&s->operand_name[0], "or");
+            break;
+        case sb:
+            sprintf(&s->operand_name[0], "sb");
+            break;
+        case mul:
+            sprintf(&s->operand_name[0], "mul");
+            break;
+        case mulw:
+            sprintf(&s->operand_name[0], "mulw");
+            break;
+        case divw:
+            sprintf(&s->operand_name[0], "divw");
+            break;
+        case remw:
+            sprintf(&s->operand_name[0], "remw");
+            break;
+        case inv:
+            sprintf(&s->operand_name[0], "inv");
+            break;
+        default:
+            sprintf(&s->operand_name[0], "unkown");
+            break;
+    }
+    printf("%s: %s\n", s->operand_name, s->cmd);
 }
 
 static int decode_exec(Decode *s) {
     word_t dest = 0, src1 = 0, src2 = 0;
     s->dnpc = s->snpc;
-
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
-#define INSTPAT_MATCH(s, name, type, ... /* body */ ) { \
+#define INSTPAT_MATCH(s, type_name, type, ... /* body */ ) { \
   decode_operand(s, &dest, &src1, &src2, concat(TYPE_, type)); \
+  decode_operand_name(s, type_name); \
   __VA_ARGS__ ; \
 }
 
@@ -132,13 +313,15 @@ static int decode_exec(Decode *s) {
 
     INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne, B, s->dnpc = src1 == src2 ? s->dnpc : s->pc + dest);
     INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq, B, s->dnpc = src1 == src2 ? s->pc + dest : s->dnpc);
-    INSTPAT("??????? ????? ????? 101 ????? 11000 11", bge, B, s->dnpc = (sword_t) src1 >= (sword_t) src2 ? s->pc + dest : s->dnpc); // >=_s
+    INSTPAT("??????? ????? ????? 101 ????? 11000 11", bge, B,
+            s->dnpc = (sword_t) src1 >= (sword_t) src2 ? s->pc + dest : s->dnpc); // >=_s
     INSTPAT("??????? ????? ????? 111 ????? 11000 11", bgeu, B, s->dnpc = src1 >= src2 ? s->pc + dest : s->dnpc);
-    INSTPAT("??????? ????? ????? 100 ????? 11000 11", blt, B, s->dnpc = (sword_t) src1 < (sword_t) src2 ? s->pc + dest : s->dnpc);
+    INSTPAT("??????? ????? ????? 100 ????? 11000 11", blt, B,
+            s->dnpc = (sword_t) src1 < (sword_t) src2 ? s->pc + dest : s->dnpc);
     INSTPAT("??????? ????? ????? 110 ????? 11000 11", bltu, B, s->dnpc = src1 < src2 ? s->pc + dest : s->dnpc);
 
     INSTPAT("??????? ????? ????? 001 ????? 01000 11", sh, S, Mw(src1 + dest, 2, src2));
-    INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw, S, Mw(src1 + dest, 4, src2));
+    INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw_, S, Mw(src1 + dest, 4, src2));
 
     INSTPAT("??????? ????? ????? ??? ????? 01101 11", lui, U, R(dest) = src1);
     INSTPAT("??????? ????? ????? 111 ????? 00100 11", andi, I, R(dest) = src1 & src2);
@@ -164,6 +347,6 @@ static int decode_exec(Decode *s) {
 }
 
 int isa_exec_once(Decode *s) {
-  s->isa.inst.val = inst_fetch(&s->snpc, 4);
-  return decode_exec(s);
+    s->isa.inst.val = inst_fetch(&s->snpc, 4);
+    return decode_exec(s);
 }

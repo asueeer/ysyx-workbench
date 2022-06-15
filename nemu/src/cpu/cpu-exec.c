@@ -18,7 +18,7 @@ uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 #ifdef CONFIG_ITRACE
-char ringbuf[32][128];
+char ringbuf[32][1024];
 int ring_idx;
 #endif
 
@@ -145,7 +145,8 @@ void cpu_exec(uint64_t n) {
 
 int update_ringbuf(Decode *s, char *str) {
     ring_idx = (ring_idx + 1) % 32;
-    strcpy(&ringbuf[ring_idx][0], str);
+    sprintf(&ringbuf[ring_idx][0], "%s; %s", str, s->cmd);
+    //strcpy(&ringbuf[ring_idx][0], str);
     return 0;
 }
 

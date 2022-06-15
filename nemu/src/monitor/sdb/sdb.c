@@ -51,6 +51,7 @@ static int cmd_si(char *args) {
             return 0;
         }
     }
+
     cpu_exec(n);
     return 0;
 }
