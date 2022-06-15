@@ -152,13 +152,17 @@ static int cmd_test_wp(char *args) {
     return 0;
 }
 
-static int cmd_ringbuf(char *args){
+static int cmd_ringbuf(char *args) {
     display_ringbuf();
     return 0;
 }
 
-
 static int cmd_help(char *args);
+
+static int cmd_mt(char *args){
+    mtrace((paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE);
+    return 0;
+}
 
 static struct {
     const char *name;
@@ -180,6 +184,7 @@ static struct {
         {"t_expr", "test the expr func is right",                        cmd_test_expr},
         {"t_wp",   "test the watchpoint functions",                      cmd_test_wp},
         {"rb",     "display ringbuf",                                    cmd_ringbuf},
+        {"mt",     "set mtrace addr_begin or addr_end",                  cmd_mt},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
