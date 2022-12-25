@@ -101,6 +101,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
 // 代码是自动生成的！
 static void decode_operand_name(Decode *s, int type_name) {
     s->type_name = type_name;
+    sprintf(&s->cmd[0], "???");
     switch (s->type_name) {
         case auipc:
             sprintf(&s->operand_name[0], "auipc");
@@ -254,7 +255,6 @@ static void decode_operand_name(Decode *s, int type_name) {
             sprintf(&s->operand_name[0], "unkown");
             break;
     }
-    printf("%s: %s\n", s->operand_name, s->cmd);
 }
 
 static int decode_exec(Decode *s) {
